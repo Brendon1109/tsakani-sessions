@@ -600,22 +600,47 @@ async function loadInstagramPlaceholders() {
     const grid = document.getElementById('instagram-grid');
     if (!grid) return;
     
-    // Use Tsakani Sessions themed images that represent the brand
-    const musicImages = [
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=faces', // DJ crowd energy
-        'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop&crop=center', // DJ mixing console
-        'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=400&fit=crop&crop=center', // Professional DJ setup
-        'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=400&fit=crop&crop=center', // Live session vibes
-        'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop&crop=center', // Studio atmosphere
+    // Create Instagram-style posts representing actual Tsakani Sessions content
+    const instagramPosts = [
+        {
+            image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=faces',
+            caption: '🔥 Pens Down Event - What an incredible night! The energy was unmatched 🎵',
+            likes: Math.floor(Math.random() * 200) + 150,
+            comments: Math.floor(Math.random() * 30) + 15
+        },
+        {
+            image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop&crop=center',
+            caption: '🎧 Behind the decks at Tsakani Sessions - Friends of Tsakani bringing the vibes',
+            likes: Math.floor(Math.random() * 180) + 120,
+            comments: Math.floor(Math.random() * 25) + 10
+        },
+        {
+            image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=400&fit=crop&crop=center',
+            caption: '✨ Studio vibes with the squad - Two Tales of Happiness, Friendship & Brotherhood',
+            likes: Math.floor(Math.random() * 160) + 100,
+            comments: Math.floor(Math.random() * 20) + 8
+        },
+        {
+            image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=400&fit=crop&crop=center',
+            caption: '🎵 Live session energy! Thank you to everyone who came through 🙌',
+            likes: Math.floor(Math.random() * 220) + 180,
+            comments: Math.floor(Math.random() * 35) + 20
+        },
+        {
+            image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop&crop=center',
+            caption: '🔊 Setting up for another epic Tsakani Sessions experience',
+            likes: Math.floor(Math.random() * 140) + 90,
+            comments: Math.floor(Math.random() * 18) + 5
+        }
     ];
     
     // Preload images
-    const imagePromises = musicImages.map(src => {
+    const imagePromises = instagramPosts.map(post => {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = resolve;
             img.onerror = reject;
-            img.src = src;
+            img.src = post.image;
         });
     });
     
@@ -623,13 +648,16 @@ async function loadInstagramPlaceholders() {
         await Promise.all(imagePromises);
         
         // Add images with staggered animation
-        grid.innerHTML = musicImages.map((imageUrl, index) => `
+        grid.innerHTML = instagramPosts.map((post, index) => `
             <div class="instagram-photo" style="animation-delay: ${index * 0.1}s">
-                <img src="${imageUrl}" alt="Tsakani Session ${index + 1}" loading="lazy">
+                <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy">
                 <div class="instagram-overlay">
+                    <div class="instagram-caption">
+                        <p>${post.caption}</p>
+                    </div>
                     <div class="instagram-stats">
-                        <span><i class="fas fa-heart"></i> ${Math.floor(Math.random() * 500) + 100}</span>
-                        <span><i class="fas fa-comment"></i> ${Math.floor(Math.random() * 50) + 10}</span>
+                        <span><i class="fas fa-heart"></i> ${post.likes}</span>
+                        <span><i class="fas fa-comment"></i> ${post.comments}</span>
                     </div>
                 </div>
             </div>
@@ -643,13 +671,16 @@ async function loadInstagramPlaceholders() {
     } catch (error) {
         console.error('Error preloading images:', error);
         // Fallback without preloading
-        grid.innerHTML = musicImages.map((imageUrl, index) => `
+        grid.innerHTML = instagramPosts.map((post, index) => `
             <div class="instagram-photo">
-                <img src="${imageUrl}" alt="Tsakani Session ${index + 1}" loading="lazy">
+                <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy">
                 <div class="instagram-overlay">
+                    <div class="instagram-caption">
+                        <p>${post.caption}</p>
+                    </div>
                     <div class="instagram-stats">
-                        <span><i class="fas fa-heart"></i> ${Math.floor(Math.random() * 500) + 100}</span>
-                        <span><i class="fas fa-comment"></i> ${Math.floor(Math.random() * 50) + 10}</span>
+                        <span><i class="fas fa-heart"></i> ${post.likes}</span>
+                        <span><i class="fas fa-comment"></i> ${post.comments}</span>
                     </div>
                 </div>
             </div>
