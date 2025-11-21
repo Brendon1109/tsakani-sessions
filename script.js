@@ -665,22 +665,30 @@ async function loadInstagramPlaceholders() {
         }
     ];
     
-    // Preload images
-    const imagePromises = instagramPosts.map(post => {
-        return new Promise((resolve, reject) => {
+    // Preload images with better error handling
+    const imagePromises = instagramPosts.map((post, index) => {
+        return new Promise((resolve) => {
             const img = new Image();
-            img.onload = resolve;
-            img.onerror = reject;
+            img.onload = () => resolve({ success: true, post, index });
+            img.onerror = () => {
+                console.warn(`Failed to load image: ${post.image}`);
+                resolve({ success: false, post, index });
+            };
             img.src = post.image;
         });
     });
     
     try {
-        await Promise.all(imagePromises);
+        const results = await Promise.all(imagePromises);
+        const loadedPosts = results.filter(result => result.success).map(result => result.post);
         
-        // Add images with staggered animation
-        grid.innerHTML = instagramPosts.map((post, index) => `
-            <div class="instagram-photo" style="animation-delay: ${index * 0.1}s">
+        if (loadedPosts.length === 0) {
+            throw new Error('No images loaded successfully');
+        }
+        
+        // Add images with staggered animation using successfully loaded posts
+        grid.innerHTML = loadedPosts.map((post, index) => `
+            <div class="instagram-photo" style="animation-delay: ${index * 0.15}s">
                 <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy">
                 <div class="instagram-overlay">
                     <div class="instagram-caption">
@@ -694,17 +702,18 @@ async function loadInstagramPlaceholders() {
             </div>
         `).join('');
         
-        // Add fade-in animation
+        // Add fade-in animation with delay
         setTimeout(() => {
             grid.classList.add('loaded');
-        }, 100);
+        }, 200);
         
     } catch (error) {
         console.error('Error preloading images:', error);
-        // Fallback without preloading
+        // Fallback without preloading - load images directly
         grid.innerHTML = instagramPosts.map((post, index) => `
-            <div class="instagram-photo">
-                <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy">
+            <div class="instagram-photo" style="animation-delay: ${index * 0.1}s">
+                <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy" 
+                     onerror="this.src='https://via.placeholder.com/400x400/f56500/ffffff?text=Tsakani+Sessions'">
                 <div class="instagram-overlay">
                     <div class="instagram-caption">
                         <p>${post.caption}</p>
