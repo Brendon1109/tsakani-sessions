@@ -39,14 +39,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Navbar background on scroll
+    // Add scroll progress indicator
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'scroll-progress';
+    document.body.appendChild(scrollProgress);
+    
+    // Navbar background and scroll progress on scroll
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        
+        // Update scroll progress
+        scrollProgress.style.width = scrollPercent + '%';
+        
+        // Update navbar background
+        if (scrollTop > 50) {
             navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         } else {
             navbar.style.background = 'rgba(255, 255, 255, 0.95)';
         }
+        
+        // Update active nav links based on scroll position
+        updateActiveNavLink();
     });
 
     // Modal functionality
@@ -341,9 +357,24 @@ function handleBookingSubmission(serviceType) {
     // Open email client
     window.location.href = mailtoLink;
     
+    // Validate all required fields
+    const requiredFields = form.querySelectorAll('[required]');
+    let allValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!validateField(field)) {
+            allValid = false;
+        }
+    });
+    
+    if (!allValid) {
+        showNotification('Please fill in all required fields correctly', 'error');
+        return;
+    }
+    
     // Close modal and show success message
     document.getElementById('booking-modal').style.display = 'none';
-    alert('Thank you for your booking request! Your email client should open with the booking details. If not, please contact us directly at tsakanisessions@gmail.com or +27 76 996 1477.');
+    showNotification('Thank you for your booking request! Your email client should open with the booking details.', 'success');
 }
 
 // Social Media Integration with Preloading
@@ -715,7 +746,198 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize DJ popup system
     initializeDJPopup();
+    
+    // Initialize form enhancements
+    initializeFormEnhancements();
+    
+    // Initialize loading states
+    initializeLoadingStates();
 });
+
+// Update active navigation link based on scroll position
+function updateActiveNavLink() {
+    const sections = ['home', 'services', 'mission', 'gallery', 'contact'];
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    let currentSection = '';
+    
+    sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId) || document.querySelector(`.${sectionId}`);
+        if (section) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom >= 100) {
+                currentSection = sectionId;
+            }
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Enhanced form validation and feedback
+function initializeFormEnhancements() {
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            // Add real-time validation
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    validateField(this);
+                }
+            });
+        });
+    });
+    
+    // Newsletter form enhancement
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', handleNewsletterSubmit);
+    }
+}
+
+function validateField(field) {
+    const formGroup = field.closest('.form-group');
+    if (!formGroup) return;
+    
+    formGroup.classList.remove('error', 'success');
+    
+    if (field.hasAttribute('required') && !field.value.trim()) {
+        showFieldError(formGroup, 'This field is required');
+        return false;
+    }
+    
+    if (field.type === 'email' && field.value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(field.value)) {
+            showFieldError(formGroup, 'Please enter a valid email address');
+            return false;
+        }
+    }
+    
+    if (field.type === 'tel' && field.value) {
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        if (!phoneRegex.test(field.value)) {
+            showFieldError(formGroup, 'Please enter a valid phone number');
+            return false;
+        }
+    }
+    
+    showFieldSuccess(formGroup);
+    return true;
+}
+
+function showFieldError(formGroup, message) {
+    formGroup.classList.add('error');
+    let errorElement = formGroup.querySelector('.form-error');
+    if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.className = 'form-error';
+        formGroup.appendChild(errorElement);
+    }
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+
+function showFieldSuccess(formGroup) {
+    formGroup.classList.add('success');
+    const errorElement = formGroup.querySelector('.form-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+    }
+}
+
+function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.querySelector('input[type="email"]').value;
+    
+    if (!email) {
+        showNotification('Please enter your email address', 'error');
+        return;
+    }
+    
+    form.classList.add('loading');
+    
+    // Simulate API call
+    setTimeout(() => {
+        form.classList.remove('loading');
+        form.reset();
+        showNotification(`Thanks for subscribing! We\'ll send updates to ${email}`, 'success');
+    }, 2000);
+}
+
+// Loading states for buttons
+function initializeLoadingStates() {
+    const buttons = document.querySelectorAll('.btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (this.classList.contains('loading')) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Add loading state for form submissions
+            if (this.type === 'submit' || this.classList.contains('book-now-btn')) {
+                this.classList.add('loading');
+                const originalText = this.textContent;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                
+                // Remove loading state after delay (would be replaced with actual form handling)
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    this.textContent = originalText;
+                }, 3000);
+            }
+        });
+    });
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span>${message}</span>
+            <button class="notification-close">&times;</button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto hide after 5 seconds
+    setTimeout(() => hideNotification(notification), 5000);
+    
+    // Close button
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+        hideNotification(notification);
+    });
+}
+
+function hideNotification(notification) {
+    notification.classList.remove('show');
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 300);
+}
 
 // DJ Popup System
 function initializeDJPopup() {
