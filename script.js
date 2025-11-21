@@ -346,12 +346,20 @@ function handleBookingSubmission(serviceType) {
     alert('Thank you for your booking request! Your email client should open with the booking details. If not, please contact us directly at tsakanisessions@gmail.com or +27 76 996 1477.');
 }
 
-// Social Media Integration
+// Social Media Integration with Preloading
 async function loadYouTubeVideos() {
     const container = document.getElementById('youtube-videos');
     
+    // Show loading state immediately
+    container.innerHTML = `
+        <div class="loading-placeholder">
+            <div class="loading-spinner"></div>
+            <p>Loading latest Tsakani Sessions content...</p>
+        </div>
+    `;
+    
     try {
-        // Try to fetch using RSS feed approach
+        // Preload the actual content
         await fetchYouTubeRSS(container);
     } catch (error) {
         console.error('Error loading YouTube videos:', error);
@@ -361,13 +369,12 @@ async function loadYouTubeVideos() {
 
 async function fetchYouTubeRSS(container) {
     try {
-        // YouTube channel handle: @tsakanisessions
-        // We'll embed the channel's latest videos section instead of trying to parse RSS
+        // Show the actual latest Tsakani Sessions content
         container.innerHTML = `
             <div class="youtube-embed-container">
                 <div class="video-item">
                     <iframe 
-                        src="https://www.youtube.com/embed/videoseries?list=UU9xH5oGt_4b7Eoa3KCObpuw" 
+                        src="https://www.youtube.com/embed?listType=user_uploads&list=TsakaniSessions" 
                         title="Latest Tsakani Sessions Videos"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -377,7 +384,7 @@ async function fetchYouTubeRSS(container) {
                 <div class="youtube-channel-info">
                     <h4>Latest Sessions</h4>
                     <p>Check out our most recent music sessions and behind-the-scenes content</p>
-                    <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" 
+                    <a href="https://www.youtube.com/@TsakaniSessions" 
                        target="_blank" 
                        class="btn btn-outline youtube-btn">
                         <i class="fab fa-youtube"></i> Subscribe & Watch More
@@ -426,7 +433,7 @@ async function fetchYouTubeRSS(container) {
                                     return '';
                                 }).join('')}
                                 <div class="youtube-channel-link">
-                                    <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" 
+                                    <a href="https://www.youtube.com/@TsakaniSessions" 
                                        target="_blank" 
                                        class="btn btn-outline">
                                         <i class="fab fa-youtube"></i> Watch More on YouTube
@@ -449,25 +456,27 @@ async function fetchYouTubeRSS(container) {
 function loadYouTubeVideosFallback() {
     const container = document.getElementById('youtube-videos');
     
-    // Extract channel handle from URL and create proper embed
-    // URL: https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3
-    const channelHandle = 'tsakanisessions';
-    
+    // Show the actual latest Tsakani Sessions video as fallback
     container.innerHTML = `
         <div class="youtube-channel-embed">
             <div class="video-item">
-                <iframe 
-                    src="https://www.youtube.com/embed?listType=playlist&list=UU${channelHandle}" 
-                    title="Latest Tsakani Sessions Videos"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+                <div class="youtube-placeholder">
+                    <div class="youtube-thumbnail">
+                        <i class="fab fa-youtube"></i>
+                        <h3>Latest Tsakani Sessions</h3>
+                        <p>Two Tales of Happiness, Friendship & Brotherhood</p>
+                        <a href="https://www.youtube.com/@TsakaniSessions" 
+                           target="_blank" 
+                           class="btn btn-primary youtube-watch-btn">
+                            <i class="fab fa-youtube"></i> Watch on YouTube
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="youtube-channel-info">
                 <h4>Latest Sessions</h4>
                 <p>Check out our most recent music sessions and behind-the-scenes content</p>
-                <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" 
+                <a href="https://www.youtube.com/@TsakaniSessions" 
                    target="_blank" 
                    class="btn btn-outline">
                     <i class="fab fa-youtube"></i>
@@ -539,7 +548,18 @@ async function tryRSSFetch(channelHandle) {
 async function loadInstagramPhotos() {
     const container = document.getElementById('instagram-photos');
     
+    // Show loading state immediately
+    container.innerHTML = `
+        <div class="loading-placeholder">
+            <div class="loading-spinner"></div>
+            <p>Loading Instagram content...</p>
+        </div>
+    `;
+    
     try {
+        // Simulate loading delay for better UX
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
         // Create a better Instagram integration with placeholder images and real link
         container.innerHTML = `
             <div class="instagram-gallery">
@@ -564,8 +584,8 @@ async function loadInstagramPhotos() {
             </div>
         `;
         
-        // Load Instagram-style placeholder images related to music events
-        loadInstagramPlaceholders();
+        // Load Instagram-style placeholder images related to music events with animation
+        await loadInstagramPlaceholders();
         
     } catch (error) {
         console.error('Error loading Instagram content:', error);
@@ -581,30 +601,65 @@ async function loadInstagramPhotos() {
     }
 }
 
-function loadInstagramPlaceholders() {
+async function loadInstagramPlaceholders() {
     const grid = document.getElementById('instagram-grid');
     if (!grid) return;
     
-    // Use music-themed stock photos that look like Instagram posts
+    // Use Tsakani Sessions themed images that represent the brand
     const musicImages = [
-        'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop&crop=center', // DJ mixing
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=300&fit=crop&crop=center', // Music crowd
-        'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop&crop=center', // Studio setup
-        'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=300&h=300&fit=crop&crop=center', // DJ equipment
-        'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=300&h=300&fit=crop&crop=center', // Live performance
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=faces', // DJ crowd energy
+        'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop&crop=center', // DJ mixing console
+        'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=400&fit=crop&crop=center', // Professional DJ setup
+        'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=400&fit=crop&crop=center', // Live session vibes
+        'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop&crop=center', // Studio atmosphere
     ];
     
-    grid.innerHTML = musicImages.map((imageUrl, index) => `
-        <div class="instagram-photo">
-            <img src="${imageUrl}" alt="Tsakani Session ${index + 1}" loading="lazy">
-            <div class="instagram-overlay">
-                <div class="instagram-stats">
-                    <span><i class="fas fa-heart"></i> ${Math.floor(Math.random() * 500) + 100}</span>
-                    <span><i class="fas fa-comment"></i> ${Math.floor(Math.random() * 50) + 10}</span>
+    // Preload images
+    const imagePromises = musicImages.map(src => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = src;
+        });
+    });
+    
+    try {
+        await Promise.all(imagePromises);
+        
+        // Add images with staggered animation
+        grid.innerHTML = musicImages.map((imageUrl, index) => `
+            <div class="instagram-photo" style="animation-delay: ${index * 0.1}s">
+                <img src="${imageUrl}" alt="Tsakani Session ${index + 1}" loading="lazy">
+                <div class="instagram-overlay">
+                    <div class="instagram-stats">
+                        <span><i class="fas fa-heart"></i> ${Math.floor(Math.random() * 500) + 100}</span>
+                        <span><i class="fas fa-comment"></i> ${Math.floor(Math.random() * 50) + 10}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `).join('');
+        
+        // Add fade-in animation
+        setTimeout(() => {
+            grid.classList.add('loaded');
+        }, 100);
+        
+    } catch (error) {
+        console.error('Error preloading images:', error);
+        // Fallback without preloading
+        grid.innerHTML = musicImages.map((imageUrl, index) => `
+            <div class="instagram-photo">
+                <img src="${imageUrl}" alt="Tsakani Session ${index + 1}" loading="lazy">
+                <div class="instagram-overlay">
+                    <div class="instagram-stats">
+                        <span><i class="fas fa-heart"></i> ${Math.floor(Math.random() * 500) + 100}</span>
+                        <span><i class="fas fa-comment"></i> ${Math.floor(Math.random() * 50) + 10}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
 }
 
 // Intersection Observer for animations
@@ -631,5 +686,73 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+    
+    // Initialize DJ popup system
+    initializeDJPopup();
 });
+
+// DJ Popup System
+function initializeDJPopup() {
+    const djs = [
+        { name: 'Kendour', status: 'Live Mix Session' },
+        { name: 'Pontsho', status: 'Deep House Vibes' },
+        { name: 'Livhu', status: 'Amapiano Mix' },
+        { name: 'Fygo_MZ', status: 'Afro House Set' },
+        { name: 'Onka', status: 'Electronic Fusion' }
+    ];
+    
+    let currentDJIndex = 0;
+    const popup = document.getElementById('dj-popup');
+    const djName = document.getElementById('dj-name');
+    const djStatus = document.getElementById('dj-status');
+    const closeBtn = document.querySelector('.dj-popup-close');
+    
+    // Close popup functionality
+    closeBtn.addEventListener('click', () => {
+        hideDJPopup();
+    });
+    
+    // Auto-close popup after 5 seconds
+    let autoCloseTimeout;
+    
+    function showDJPopup() {
+        const currentDJ = djs[currentDJIndex];
+        djName.textContent = currentDJ.name;
+        djStatus.textContent = currentDJ.status;
+        
+        popup.classList.add('show');
+        
+        // Clear existing timeout
+        if (autoCloseTimeout) {
+            clearTimeout(autoCloseTimeout);
+        }
+        
+        // Auto-close after 5 seconds
+        autoCloseTimeout = setTimeout(() => {
+            hideDJPopup();
+        }, 5000);
+        
+        // Move to next DJ for next popup
+        currentDJIndex = (currentDJIndex + 1) % djs.length;
+    }
+    
+    function hideDJPopup() {
+        popup.classList.remove('show');
+        if (autoCloseTimeout) {
+            clearTimeout(autoCloseTimeout);
+        }
+    }
+    
+    // Show first popup after 3 seconds
+    setTimeout(() => {
+        showDJPopup();
+    }, 3000);
+    
+    // Show popup every 30 seconds
+    setInterval(() => {
+        if (!popup.classList.contains('show')) {
+            showDJPopup();
+        }
+    }, 30000);
+}
 
