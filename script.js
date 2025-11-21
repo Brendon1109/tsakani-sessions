@@ -374,8 +374,8 @@ async function fetchYouTubeRSS(container) {
             <div class="youtube-embed-container">
                 <div class="video-item">
                     <iframe 
-                        src="https://www.youtube.com/embed?listType=user_uploads&list=TsakaniSessions" 
-                        title="Latest Tsakani Sessions Videos"
+                        src="https://www.youtube.com/embed/Yb_OpN-nUVM" 
+                        title="Latest Tsakani Sessions Video"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
@@ -460,18 +460,13 @@ function loadYouTubeVideosFallback() {
     container.innerHTML = `
         <div class="youtube-channel-embed">
             <div class="video-item">
-                <div class="youtube-placeholder">
-                    <div class="youtube-thumbnail">
-                        <i class="fab fa-youtube"></i>
-                        <h3>Latest Tsakani Sessions</h3>
-                        <p>Two Tales of Happiness, Friendship & Brotherhood</p>
-                        <a href="https://www.youtube.com/@TsakaniSessions" 
-                           target="_blank" 
-                           class="btn btn-primary youtube-watch-btn">
-                            <i class="fab fa-youtube"></i> Watch on YouTube
-                        </a>
-                    </div>
-                </div>
+                <iframe 
+                    src="https://www.youtube.com/embed/Yb_OpN-nUVM" 
+                    title="Latest Tsakani Sessions Video"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
             </div>
             <div class="youtube-channel-info">
                 <h4>Latest Sessions</h4>
