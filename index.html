@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsakani Sessions - Experience the Joy of Music Together</title>
+    <meta name="description" content="Book Tsakani Sessions for unforgettable live music events, DJ services, and content creation. Join us for an immersive journey of sound and culture.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Tsakani Sessions</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#booking" class="nav-link book-now-btn">Book Now</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Let's Experience the Joy of Music Together</h1>
+            <p class="hero-subtitle">Join us for unforgettable live music events and cultural experiences.</p>
+            <div class="hero-buttons">
+                <a href="#booking" class="btn btn-primary">Book Session</a>
+                <a href="#services" class="btn btn-secondary">Discover Events</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Choose from our range of professional music and content creation services</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Full Tsakani Session</h3>
+                    <p>Complete package with content creation, camera crew, DJs, setup assistance, and equipment</p>
+                    <ul class="service-features">
+                        <li>Professional content creation</li>
+                        <li>Camera crew included</li>
+                        <li>Multiple DJs available</li>
+                        <li>Setup and crowd control</li>
+                        <li>Full DJ equipment provided</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openBookingModal('full-session')">Book Now</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3>DJ Services Only</h3>
+                    <p>Choose from our lineup of professional DJs for your event</p>
+                    <ul class="service-features">
+                        <li>Professional DJ selection</li>
+                        <li>Customizable playlist</li>
+                        <li>Professional sound quality</li>
+                        <li>Event-specific music curation</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openBookingModal('dj-only')">Book Now</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Content Creation & Camera Crew</h3>
+                    <p>Professional content creators and camera crew for your event documentation</p>
+                    <ul class="service-features">
+                        <li>Professional videography</li>
+                        <li>Social media content</li>
+                        <li>Event photography</li>
+                        <li>Post-production included</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openBookingModal('content-only')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="mission">
+        <div class="container">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>At Tsakani Sessions, our mission is to create unforgettable experiences that celebrate music and culture. We aim to foster a sense of community through our events, bringing together diverse DJs and artists for an immersive journey of sound.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest Content</h2>
+                <p>Check out our recent sessions and behind-the-scenes content</p>
+            </div>
+            <div class="gallery-content">
+                <div class="youtube-section">
+                    <h3>Latest Videos</h3>
+                    <div id="youtube-videos" class="video-grid">
+                        <!-- YouTube videos will be loaded here -->
+                    </div>
+                </div>
+                <div class="instagram-section">
+                    <h3>Recent Photos</h3>
+                    <div id="instagram-photos" class="photo-grid">
+                        <!-- Instagram photos will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to book your session or have questions? Contact us today!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+27 76 996 1477</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>tsakanisessions@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <h4>Instagram</h4>
+                            <p><a href="https://www.instagram.com/tsakani_sessions?igsh=N2Z3aTk4bGVtYTkz" target="_blank">@tsakani_sessions</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-youtube"></i>
+                        <div>
+                            <h4>YouTube</h4>
+                            <p><a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" target="_blank">Tsakani Sessions</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="newsletter-signup">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for upcoming events and exclusive content</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                    <div class="whatsapp-channel">
+                        <p>Join our WhatsApp channel for instant updates</p>
+                        <button class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            Join WhatsApp Channel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="booking-title">Book Your Session</h2>
+            <form id="booking-form">
+                <div id="booking-form-content">
+                    <!-- Form content will be dynamically generated -->
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tsakani Sessions</h3>
+                    <p>Creating unforgettable music experiences and cultural celebrations.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/tsakani_sessions?igsh=N2Z3aTk4bGVtYTkz" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/27769961477" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Full Sessions</a></li>
+                        <li><a href="#services">DJ Services</a></li>
+                        <li><a href="#services">Content Creation</a></li>
+                        <li><a href="#booking">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>+27 76 996 1477</li>
+                        <li>tsakanisessions@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tsakani Sessions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
