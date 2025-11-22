@@ -387,6 +387,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Auto-show DJ popup notification
+    setTimeout(() => {
+        const djPopup = document.getElementById('dj-popup');
+        if (djPopup) {
+            djPopup.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                djPopup.classList.remove('show');
+            }, 5000);
+            
+            // Click to hide
+            djPopup.addEventListener('click', () => {
+                djPopup.classList.remove('show');
+            });
+        }
+    }, 2000); // Show after 2 seconds
+
     // Load social media content
     loadYouTubeVideos();
     loadInstagramPhotos();
