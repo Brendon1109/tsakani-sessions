@@ -1839,8 +1839,8 @@ button:focus-visible {
 /* DJ Popup Notification - Circular Design */
 .dj-popup {
     position: fixed;
-    top: 80px;
-    right: 20px;
+    bottom: 20px;
+    right: 100px;
     z-index: 10000;
     width: 60px;
     height: 60px;
@@ -1900,7 +1900,7 @@ button:focus-visible {
 .dj-popup::before {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: -35px;
+    top: -35px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.8);
@@ -1921,6 +1921,7 @@ button:focus-visible {
         transform: translateX(-100%);
         font-size: 11px;
         padding: 4px 8px;
+        top: -30px;
     }
 }
 
@@ -1984,7 +1985,7 @@ button:focus-visible {
     
     /* DJ popup mobile */
     .dj-popup {
-        top: 70px;
+        bottom: 80px;
         right: 15px;
         width: 50px;
         height: 50px;
