@@ -867,6 +867,13 @@ section {
     gap: 1rem;
 }
 
+@media (max-width: 768px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+}
+
 .photo-item {
     aspect-ratio: 1;
     border-radius: var(--border-radius);
@@ -1542,7 +1549,14 @@ section {
 .instagram-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .instagram-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+    }
 }
 
 .instagram-photo {
@@ -1551,6 +1565,15 @@ section {
     overflow: hidden;
     cursor: pointer;
     transition: var(--transition);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .instagram-photo {
+        border-radius: 6px;
+        min-height: 150px;
+    }
 }
 
 .instagram-photo:hover {
@@ -1563,6 +1586,15 @@ section {
     height: 100%;
     object-fit: cover;
     transition: var(--transition);
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .instagram-photo img {
+        object-fit: cover;
+        height: 100%;
+        min-height: 150px;
+    }
 }
 
 .instagram-overlay {
@@ -1807,8 +1839,8 @@ button:focus-visible {
 /* DJ Popup Notification - Circular Design */
 .dj-popup {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 80px;
+    right: 20px;
     z-index: 10000;
     width: 60px;
     height: 60px;
@@ -1883,6 +1915,15 @@ button:focus-visible {
     z-index: 10001;
 }
 
+@media (max-width: 768px) {
+    .dj-popup::before {
+        left: -20px;
+        transform: translateX(-100%);
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+
 .dj-popup:hover::before {
     opacity: 1;
 }
@@ -1943,8 +1984,8 @@ button:focus-visible {
     
     /* DJ popup mobile */
     .dj-popup {
-        top: 15px;
-        left: 15px;
+        top: 70px;
+        right: 15px;
         width: 50px;
         height: 50px;
     }
@@ -2431,14 +2472,14 @@ button:focus-visible {
 @media (max-width: 768px) {
     .engagement-meter {
         right: 15px;
-        bottom: 15px;
-        width: 60px;
-        height: 60px;
+        bottom: 20px;
+        width: 55px;
+        height: 55px;
     }
     
     .engagement-meter:hover {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
     }
     
     .achievement-notification {
