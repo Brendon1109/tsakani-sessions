@@ -1839,8 +1839,8 @@ button:focus-visible {
 /* DJ Popup Notification - Circular Design */
 .dj-popup {
     position: fixed;
-    bottom: 20px;
-    right: 100px;
+    bottom: 90px;
+    right: 20px;
     z-index: 10000;
     width: 60px;
     height: 60px;
@@ -1985,7 +1985,7 @@ button:focus-visible {
     
     /* DJ popup mobile */
     .dj-popup {
-        bottom: 80px;
+        bottom: 85px;
         right: 15px;
         width: 50px;
         height: 50px;
