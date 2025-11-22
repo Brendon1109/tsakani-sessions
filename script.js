@@ -202,11 +202,10 @@ class GoogleDriveBackgroundShuffler {
          * 5. The system will automatically rotate through these images every 8 seconds
          */
         this.imageIds = [
-            '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Replace with your image ID
-            '1mGVAOoXJ7fqkXeN8YvVQw4jzYXJYzWdM2UrFxYzNpQg', // Replace with your image ID  
-            '1KdVFw3wMn8jPfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq', // Replace with your image ID
-            '1QwErTyUiOpLq8jPfQqKzT8xY2mNbVcXzAsD5ErTyU', // Replace with your image ID
-            '1PfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq8jPfQqKzT8' // Replace with your image ID
+            '1pUKSh8cGYyOwQAoeMjimiNXdsvoUZ-pP', // Your Tsakani Sessions image
+            '1WLbc7qn6Ehh_7sWlyCsGxwo5AgSZihq1', // Your Tsakani Sessions image  
+            '1_ASuwix-myBC2T5eufVtSj2EJpBuirf3', // Your Tsakani Sessions image
+            '1Qp3N8zWD8SJCclCJ_YEjopGaq0I4Jgoz' // Your Tsakani Sessions image
         ];
         this.currentIndex = 0;
         this.heroElement = null;
@@ -978,41 +977,28 @@ async function loadInstagramPlaceholders() {
     // Your actual Tsakani Sessions images from Google Drive
     const tsakaniImages = [
         {
-            // Replace these with your actual Google Drive image file IDs
-            fileId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Example ID - replace with your image
-            caption: '🔥 Pens Down Event - What an incredible night! The energy was unmatched 🎵',
+            fileId: '1pUKSh8cGYyOwQAoeMjimiNXdsvoUZ-pP', // Your actual Tsakani Sessions image
+            caption: '🔥 Tsakani Sessions vibes - The energy was unmatched! 🎵',
             likes: Math.floor(Math.random() * 200) + 150,
             comments: Math.floor(Math.random() * 30) + 15
         },
         {
-            fileId: '1mGVAOoXJ7fqkXeN8YvVQw4jzYXJYzWdM2UrFxYzNpQg', // Example ID - replace with your image
-            caption: '🎧 Behind the decks at Tsakani Sessions - Friends of Tsakani bringing the vibes',
+            fileId: '1WLbc7qn6Ehh_7sWlyCsGxwo5AgSZihq1', // Your actual Tsakani Sessions image
+            caption: '🎧 Behind the scenes with Tsakani Sessions crew - Friends bringing the vibes',
             likes: Math.floor(Math.random() * 180) + 120,
             comments: Math.floor(Math.random() * 25) + 10
         },
         {
-            fileId: '1KdVFw3wMn8jPfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq', // Example ID - replace with your image
-            caption: '✨ Studio vibes with the squad - Two Tales of Happiness, Friendship & Brotherhood',
+            fileId: '1_ASuwix-myBC2T5eufVtSj2EJpBuirf3', // Your actual Tsakani Sessions image
+            caption: '✨ Two Tales of Happiness, Friendship & Brotherhood in action',
             likes: Math.floor(Math.random() * 160) + 100,
             comments: Math.floor(Math.random() * 20) + 8
         },
         {
-            fileId: '1QwErTyUiOpLq8jPfQqKzT8xY2mNbVcXzAsD5ErTyU', // Example ID - replace with your image
+            fileId: '1Qp3N8zWD8SJCclCJ_YEjopGaq0I4Jgoz', // Your actual Tsakani Sessions image
             caption: '🎵 Live session energy! Thank you to everyone who came through 🙌',
             likes: Math.floor(Math.random() * 220) + 180,
             comments: Math.floor(Math.random() * 35) + 20
-        },
-        {
-            fileId: '1PfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq8jPfQqKzT8', // Example ID - replace with your image
-            caption: '🔊 Setting up for another epic Tsakani Sessions experience',
-            likes: Math.floor(Math.random() * 140) + 90,
-            comments: Math.floor(Math.random() * 18) + 5
-        },
-        {
-            fileId: '1AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUu', // Example ID - replace with your image
-            caption: '🌍 Ubuntu spirit in action - Music brings us together',
-            likes: Math.floor(Math.random() * 190) + 130,
-            comments: Math.floor(Math.random() * 28) + 12
         }
     ];
     
