@@ -1002,76 +1002,72 @@ async function loadInstagramPlaceholders() {
         }
     ];
     
-    // Convert Google Drive file IDs to direct image URLs
-    const instagramPosts = tsakaniImages.map(item => ({
-        image: `https://drive.google.com/uc?id=${item.fileId}&export=view`,
-        caption: item.caption,
-        likes: item.likes,
-        comments: item.comments,
-        fileId: item.fileId
-    }));
+    console.log('Loading Tsakani Sessions images...', tsakaniImages);
     
-    // Preload images with better error handling
-    const imagePromises = instagramPosts.map((post, index) => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve({ success: true, post, index });
-            img.onerror = () => {
-                console.warn(`Failed to load image: ${post.image}`);
-                resolve({ success: false, post, index });
-            };
-            img.src = post.image;
-        });
+    // Convert Google Drive file IDs to direct image URLs with multiple fallback options
+    const instagramPosts = tsakaniImages.map((item, index) => {
+        const post = {
+            image: `https://drive.google.com/uc?export=view&id=${item.fileId}`,
+            thumbnailImage: `https://drive.google.com/thumbnail?id=${item.fileId}&sz=w400-h400`,
+            fallbackImage: `https://images.unsplash.com/photo-${['1571019613454-1cb2f99b2d8b', '1493225457124-a3eb161ffa5f', '1598488035139-bdbb2231ce04', '1506157786151-b8491531f063'][index] || '1571019613454-1cb2f99b2d8b'}?w=400&h=400&fit=crop&crop=center`,
+            caption: item.caption,
+            likes: item.likes,
+            comments: item.comments,
+            fileId: item.fileId
+        };
+        console.log(`Post ${index + 1}:`, post);
+        return post;
     });
     
-    try {
-        const results = await Promise.all(imagePromises);
-        const loadedPosts = results.filter(result => result.success).map(result => result.post);
-        
-        if (loadedPosts.length === 0) {
-            throw new Error('No images loaded successfully');
-        }
-        
-        // Add images with staggered animation using successfully loaded posts
-        grid.innerHTML = loadedPosts.map((post, index) => `
-            <div class="instagram-photo" style="animation-delay: ${index * 0.15}s">
-                <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy">
-                <div class="instagram-overlay">
-                    <div class="instagram-caption">
-                        <p>${post.caption}</p>
-                    </div>
-                    <div class="instagram-stats">
-                        <span><i class="fas fa-heart"></i> ${post.likes}</span>
-                        <span><i class="fas fa-comment"></i> ${post.comments}</span>
-                    </div>
+    // Create images with simplified error handling for better mobile support
+    grid.innerHTML = instagramPosts.map((post, index) => `
+        <div class="instagram-photo" style="animation-delay: ${index * 0.15}s">
+            <img src="${post.fallbackImage}" 
+                 data-drive-src="${post.image}"
+                 data-drive-thumb="${post.thumbnailImage}"
+                 alt="Tsakani Session ${index + 1}" 
+                 loading="lazy"
+                 onload="console.log('Image loaded:', this.src)"
+                 onerror="console.log('Image failed:', this.src); this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center'">
+            <div class="instagram-overlay">
+                <div class="instagram-caption">
+                    <p>${post.caption}</p>
+                </div>
+                <div class="instagram-stats">
+                    <span><i class="fas fa-heart"></i> ${post.likes}</span>
+                    <span><i class="fas fa-comment"></i> ${post.comments}</span>
                 </div>
             </div>
-        `).join('');
-        
-        // Add fade-in animation with delay
-        setTimeout(() => {
-            grid.classList.add('loaded');
-        }, 200);
-        
-    } catch (error) {
-        console.error('Error preloading images:', error);
-        // Fallback without preloading - load images directly
-        grid.innerHTML = instagramPosts.map((post, index) => `
-            <div class="instagram-photo" style="animation-delay: ${index * 0.1}s">
-                <img src="${post.image}" alt="Tsakani Session ${index + 1}" loading="lazy" 
-                     onerror="this.src='https://via.placeholder.com/400x400/f56500/ffffff?text=Tsakani+Sessions'">
-                <div class="instagram-overlay">
-                    <div class="instagram-caption">
-                        <p>${post.caption}</p>
-                    </div>
-                    <div class="instagram-stats">
-                        <span><i class="fas fa-heart"></i> ${post.likes}</span>
-                        <span><i class="fas fa-comment"></i> ${post.comments}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
+        </div>
+    `).join('');
+    
+    // Try to load Google Drive images after fallbacks are in place
+    setTimeout(() => {
+        const images = grid.querySelectorAll('img[data-drive-src]');
+        images.forEach((img, index) => {
+            const originalSrc = img.src;
+            const driveSrc = img.getAttribute('data-drive-src');
+            
+            console.log(`Attempting to load Google Drive image ${index + 1}: ${driveSrc}`);
+            
+            // Try to load Google Drive image
+            const testImg = new Image();
+            testImg.onload = () => {
+                console.log(`Google Drive image ${index + 1} loaded successfully`);
+                img.src = driveSrc;
+            };
+            testImg.onerror = () => {
+                console.log(`Google Drive image ${index + 1} failed, keeping fallback`);
+                // Keep the fallback image
+            };
+            testImg.src = driveSrc;
+        });
+    }, 1000);
+    
+    // Add fade-in animation with delay
+    setTimeout(() => {
+        grid.classList.add('loaded');
+    }, 200);
 }
 
 // Intersection Observer for animations
