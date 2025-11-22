@@ -1,3 +1,184 @@
+// African-inspired Gamification System
+class TsakaniGamificationEngine {
+    constructor() {
+        this.userStats = {
+            engagementScore: 0,
+            achievements: [],
+            visitTime: 0,
+            actionsCompleted: 0,
+            sectionViews: new Set()
+        };
+        this.achievements = [
+            { id: 'explorer', name: 'Ubuntu Explorer', desc: 'Viewed all sections', icon: '🌍', threshold: 4 },
+            { id: 'engaged', name: 'Engaged Visitor', desc: '5 minutes of exploration', icon: '⏰', threshold: 300 },
+            { id: 'interactive', name: 'Interactive Spirit', desc: 'Completed 3 actions', icon: '🤝', threshold: 3 },
+            { id: 'booking_master', name: 'Booking Master', desc: 'Opened booking form', icon: '📅', threshold: 1 }
+        ];
+        this.startTime = Date.now();
+        this.init();
+    }
+
+    init() {
+        this.createEngagementMeter();
+        this.trackUserInteractions();
+        this.startTimeTracking();
+    }
+
+    createEngagementMeter() {
+        const meterHTML = `
+            <div class="engagement-meter" id="engagementMeter">
+                <div class="meter-icon">🔥</div>
+                <div class="meter-bar">
+                    <div class="meter-fill"></div>
+                </div>
+                <div class="meter-text">Ubuntu Spirit: <span class="score">0</span>/100</div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', meterHTML);
+    }
+
+    addEngagementPoints(points, reason) {
+        this.userStats.engagementScore = Math.min(100, this.userStats.engagementScore + points);
+        this.updateEngagementMeter();
+        this.showFloatingPoints(points, reason);
+        this.checkAchievements();
+    }
+
+    updateEngagementMeter() {
+        const meter = document.querySelector('.meter-fill');
+        const scoreText = document.querySelector('.meter-text .score');
+        if (meter && scoreText) {
+            meter.style.width = `${this.userStats.engagementScore}%`;
+            scoreText.textContent = Math.round(this.userStats.engagementScore);
+        }
+    }
+
+    showFloatingPoints(points, reason) {
+        const floatingPoint = document.createElement('div');
+        floatingPoint.className = 'floating-points';
+        floatingPoint.innerHTML = `+${points} <small>${reason}</small>`;
+        document.body.appendChild(floatingPoint);
+        
+        setTimeout(() => floatingPoint.remove(), 3000);
+    }
+
+    checkAchievements() {
+        this.achievements.forEach(achievement => {
+            if (!this.userStats.achievements.includes(achievement.id)) {
+                let achieved = false;
+                
+                switch(achievement.id) {
+                    case 'explorer':
+                        achieved = this.userStats.sectionViews.size >= achievement.threshold;
+                        break;
+                    case 'engaged':
+                        achieved = this.userStats.visitTime >= achievement.threshold;
+                        break;
+                    case 'interactive':
+                        achieved = this.userStats.actionsCompleted >= achievement.threshold;
+                        break;
+                    case 'booking_master':
+                        achieved = this.userStats.actionsCompleted >= achievement.threshold;
+                        break;
+                }
+                
+                if (achieved) {
+                    this.unlockAchievement(achievement);
+                }
+            }
+        });
+    }
+
+    unlockAchievement(achievement) {
+        this.userStats.achievements.push(achievement.id);
+        this.showAchievementNotification(achievement);
+        this.addEngagementPoints(20, 'Achievement!');
+    }
+
+    showAchievementNotification(achievement) {
+        const notification = document.createElement('div');
+        notification.className = 'achievement-notification';
+        notification.innerHTML = `
+            <div class="achievement-icon">${achievement.icon}</div>
+            <div class="achievement-content">
+                <h4>Achievement Unlocked!</h4>
+                <p><strong>${achievement.name}</strong></p>
+                <small>${achievement.desc}</small>
+            </div>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.classList.add('show'), 100);
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 500);
+        }, 4000);
+    }
+
+    trackSectionView(sectionId) {
+        if (!this.userStats.sectionViews.has(sectionId)) {
+            this.userStats.sectionViews.add(sectionId);
+            this.addEngagementPoints(10, 'Section Explored');
+        }
+    }
+
+    trackAction(actionType) {
+        this.userStats.actionsCompleted++;
+        let points = 5;
+        let reason = 'Interaction';
+        
+        switch(actionType) {
+            case 'booking_click':
+                points = 15;
+                reason = 'Booking Interest';
+                break;
+            case 'form_submit':
+                points = 25;
+                reason = 'Form Submitted';
+                break;
+            case 'social_click':
+                points = 8;
+                reason = 'Social Engagement';
+                break;
+        }
+        
+        this.addEngagementPoints(points, reason);
+    }
+
+    startTimeTracking() {
+        setInterval(() => {
+            this.userStats.visitTime = Math.floor((Date.now() - this.startTime) / 1000);
+            this.checkAchievements();
+        }, 1000);
+    }
+
+    trackUserInteractions() {
+        // Track scroll engagement
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                if (scrollPercent > 25 && !this.userStats.sectionViews.has('quarter_scroll')) {
+                    this.userStats.sectionViews.add('quarter_scroll');
+                    this.trackSectionView('hero');
+                }
+                if (scrollPercent > 50 && !this.userStats.sectionViews.has('half_scroll')) {
+                    this.userStats.sectionViews.add('half_scroll');
+                    this.trackSectionView('services');
+                }
+                if (scrollPercent > 75 && !this.userStats.sectionViews.has('three_quarter_scroll')) {
+                    this.userStats.sectionViews.add('three_quarter_scroll');
+                    this.trackSectionView('gallery');
+                }
+            }, 100);
+        });
+    }
+}
+
+// Initialize gamification system
+const gamification = new TsakaniGamificationEngine();
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
@@ -92,6 +273,30 @@ document.addEventListener('DOMContentLoaded', function() {
         window.open('https://wa.me/27769961477', '_blank');
     });
 
+    // Add gamification tracking to social media links
+    const socialLinks = document.querySelectorAll('a[href*="instagram"], a[href*="youtube"]');
+    socialLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (typeof gamification !== 'undefined') {
+                gamification.trackAction('social_click');
+            }
+        });
+    });
+
+    // Track newsletter subscription
+    newsletterForm.addEventListener('submit', function() {
+        if (typeof gamification !== 'undefined') {
+            gamification.trackAction('form_submit');
+        }
+    });
+
+    // Track WhatsApp interaction
+    whatsappBtn.addEventListener('click', function() {
+        if (typeof gamification !== 'undefined') {
+            gamification.trackAction('social_click');
+        }
+    });
+
     // Load social media content
     loadYouTubeVideos();
     loadInstagramPhotos();
@@ -101,6 +306,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Booking modal functionality
 function openBookingModal(serviceType) {
+    // Track booking interaction for gamification
+    if (typeof gamification !== 'undefined') {
+        gamification.trackAction('booking_click');
+    }
+    
     const modal = document.getElementById('booking-modal');
     const title = document.getElementById('booking-title');
     const formContent = document.getElementById('booking-form-content');
@@ -336,6 +546,11 @@ function openBookingModal(serviceType) {
 }
 
 function handleBookingSubmission(serviceType) {
+    // Track form submission for gamification
+    if (typeof gamification !== 'undefined') {
+        gamification.trackAction('form_submit');
+    }
+    
     const form = document.getElementById('booking-form');
     const formData = new FormData(form);
     
