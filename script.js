@@ -176,8 +176,84 @@ class TsakaniGamificationEngine {
     }
 }
 
-// Initialize gamification system
+// Google Drive Background Shuffle System
+class GoogleDriveBackgroundShuffler {
+    constructor() {
+        /* 
+         * TO SET UP GOOGLE DRIVE BACKGROUND IMAGES:
+         * 1. Upload your images to Google Drive
+         * 2. Right-click each image → "Get link" → "Anyone with link can view"
+         * 3. Copy the file ID from the URL (the long string after /d/ and before /view)
+         * 4. Replace the example IDs below with your actual Google Drive image IDs
+         * 5. The system will automatically rotate through these images every 8 seconds
+         */
+        this.imageIds = [
+            '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Replace with your image ID
+            '1mGVAOoXJ7fqkXeN8YvVQw4jzYXJYzWdM2UrFxYzNpQg', // Replace with your image ID  
+            '1KdVFw3wMn8jPfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq', // Replace with your image ID
+            '1QwErTyUiOpLq8jPfQqKzT8xY2mNbVcXzAsD5ErTyU', // Replace with your image ID
+            '1PfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq8jPfQqKzT8' // Replace with your image ID
+        ];
+        this.currentIndex = 0;
+        this.heroElement = null;
+        this.init();
+    }
+
+    init() {
+        this.heroElement = document.querySelector('.hero');
+        if (this.heroElement) {
+            this.startBackgroundRotation();
+        }
+    }
+
+    getGoogleDriveImageUrl(fileId) {
+        return `https://drive.google.com/uc?id=${fileId}&export=view`;
+    }
+
+    preloadImages() {
+        this.imageIds.forEach(id => {
+            const img = new Image();
+            img.src = this.getGoogleDriveImageUrl(id);
+        });
+    }
+
+    updateBackground() {
+        if (!this.heroElement) return;
+        
+        const currentImageId = this.imageIds[this.currentIndex];
+        const imageUrl = this.getGoogleDriveImageUrl(currentImageId);
+        
+        // Create a smooth transition by layering backgrounds
+        this.heroElement.style.backgroundImage = `
+            var(--gradient-hero),
+            linear-gradient(rgba(255, 69, 0, 0.3), rgba(255, 215, 0, 0.2)),
+            url('${imageUrl}')
+        `;
+        
+        this.currentIndex = (this.currentIndex + 1) % this.imageIds.length;
+    }
+
+    startBackgroundRotation() {
+        this.preloadImages();
+        this.updateBackground(); // Set initial background
+        
+        // Rotate background every 8 seconds
+        setInterval(() => {
+            this.updateBackground();
+        }, 8000);
+    }
+
+    // Method to update image IDs if needed
+    updateImageIds(newIds) {
+        this.imageIds = newIds;
+        this.currentIndex = 0;
+        this.preloadImages();
+    }
+}
+
+// Initialize systems
 const gamification = new TsakaniGamificationEngine();
+const backgroundShuffler = new GoogleDriveBackgroundShuffler();
 
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
