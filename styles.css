@@ -1550,6 +1550,20 @@ section {
     color: #E4405F;
 }
 
+.instagram-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .instagram-stats {
+        gap: 0.5rem;
+    }
+}
+
 .instagram-follow-btn {
     background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
     color: white;
