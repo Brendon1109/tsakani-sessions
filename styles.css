@@ -2100,40 +2100,76 @@ button:focus-visible {
 /* African-Inspired Gamification Styles */
 .engagement-meter {
     position: fixed;
-    top: 50%;
+    bottom: 20px;
     right: 20px;
-    transform: translateY(-50%);
     z-index: 1000;
     background: linear-gradient(135deg, var(--terra-cotta) 0%, var(--gold) 100%);
-    padding: 1rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(205, 133, 63, 0.3);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(205, 133, 63, 0.4);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(218, 165, 32, 0.3);
-    min-width: 200px;
     font-family: 'Inter', sans-serif;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+}
+
+.engagement-meter::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--gold);
+    border-right-color: var(--gold);
+    opacity: 0.7;
+    transition: transform 0.4s ease;
+}
+
+.engagement-meter::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    animation: circularPulse 3s ease-in-out infinite;
 }
 
 .engagement-meter:hover {
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 12px 40px rgba(205, 133, 63, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(205, 133, 63, 0.6);
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
 }
 
 .meter-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2px;
     animation: pulse 2s infinite;
 }
 
 .meter-bar {
-    width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    width: 30px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2px;
     position: relative;
 }
 
@@ -2159,17 +2195,24 @@ button:focus-visible {
 
 .meter-text {
     color: white;
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.6rem;
+    font-weight: 700;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.engagement-meter:hover .meter-text {
+    opacity: 1;
+    font-size: 0.75rem;
 }
 
 .floating-points {
     position: fixed;
-    right: 240px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 100px;
+    bottom: 60px;
     z-index: 1001;
     background: linear-gradient(135deg, var(--gold), var(--sunset-orange));
     color: white;
@@ -2317,12 +2360,33 @@ button:focus-visible {
     }
 }
 
+@keyframes circularPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+
 /* Mobile Responsiveness for Gamification */
 @media (max-width: 768px) {
     .engagement-meter {
-        right: 10px;
-        min-width: 160px;
-        padding: 0.75rem;
+        right: 15px;
+        bottom: 15px;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .engagement-meter:hover {
+        width: 100px;
+        height: 100px;
     }
     
     .achievement-notification {
@@ -2333,8 +2397,9 @@ button:focus-visible {
     }
     
     .floating-points {
-        right: 180px;
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
+        right: 80px;
+        bottom: 50px;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
     }
 }

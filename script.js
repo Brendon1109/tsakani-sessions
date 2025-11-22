@@ -26,12 +26,12 @@ class TsakaniGamificationEngine {
 
     createEngagementMeter() {
         const meterHTML = `
-            <div class="engagement-meter" id="engagementMeter">
+            <div class="engagement-meter" id="engagementMeter" title="Ubuntu Spirit Level">
                 <div class="meter-icon">🔥</div>
                 <div class="meter-bar">
                     <div class="meter-fill"></div>
                 </div>
-                <div class="meter-text">Ubuntu Spirit: <span class="score">0</span>/100</div>
+                <div class="meter-text">Ubuntu: <span class="score">0</span></div>
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', meterHTML);
@@ -47,9 +47,23 @@ class TsakaniGamificationEngine {
     updateEngagementMeter() {
         const meter = document.querySelector('.meter-fill');
         const scoreText = document.querySelector('.meter-text .score');
-        if (meter && scoreText) {
+        const engagementMeter = document.querySelector('.engagement-meter');
+        
+        if (meter && scoreText && engagementMeter) {
             meter.style.width = `${this.userStats.engagementScore}%`;
             scoreText.textContent = Math.round(this.userStats.engagementScore);
+            
+            // Update the circular progress ring
+            const progressDegree = (this.userStats.engagementScore / 100) * 360;
+            engagementMeter.style.background = `
+                conic-gradient(
+                    var(--gold) 0deg,
+                    var(--terra-cotta) ${progressDegree}deg,
+                    rgba(255,255,255,0.2) ${progressDegree}deg,
+                    rgba(255,255,255,0.2) 360deg
+                ),
+                linear-gradient(135deg, var(--terra-cotta) 0%, var(--gold) 100%)
+            `;
         }
     }
 
