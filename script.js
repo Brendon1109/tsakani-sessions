@@ -954,39 +954,76 @@ async function loadInstagramPlaceholders() {
     const grid = document.getElementById('instagram-grid');
     if (!grid) return;
     
-    // Create Instagram-style posts representing actual Tsakani Sessions content
-    const instagramPosts = [
+    /* 
+     * GOOGLE DRIVE FOLDER INTEGRATION
+     * Your folder: https://drive.google.com/drive/folders/1d1FovWzZ-_m7C2l7Gopq_Yd5j6sfp6Q6
+     * 
+     * STEP-BY-STEP SETUP INSTRUCTIONS:
+     * 
+     * 1. Open your Google Drive folder: https://drive.google.com/drive/folders/1d1FovWzZ-_m7C2l7Gopq_Yd5j6sfp6Q6
+     * 2. Make sure the folder is shared: "Anyone with the link can view"
+     * 3. For each image you want to display:
+     *    a) Right-click the image → "Get link"
+     *    b) Copy the link (looks like: https://drive.google.com/file/d/FILE_ID_HERE/view?usp=sharing)
+     *    c) Extract just the FILE_ID_HERE part (the long string between /d/ and /view)
+     *    d) Replace the example IDs below with your actual file IDs
+     * 
+     * 4. Example:
+     *    If your link is: https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/view
+     *    Your file ID is: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms
+     * 
+     * 5. The system will automatically convert these to direct image URLs
+     */
+    
+    // Your actual Tsakani Sessions images from Google Drive
+    const tsakaniImages = [
         {
-            image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=faces',
+            // Replace these with your actual Google Drive image file IDs
+            fileId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Example ID - replace with your image
             caption: '🔥 Pens Down Event - What an incredible night! The energy was unmatched 🎵',
             likes: Math.floor(Math.random() * 200) + 150,
             comments: Math.floor(Math.random() * 30) + 15
         },
         {
-            image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop&crop=center',
+            fileId: '1mGVAOoXJ7fqkXeN8YvVQw4jzYXJYzWdM2UrFxYzNpQg', // Example ID - replace with your image
             caption: '🎧 Behind the decks at Tsakani Sessions - Friends of Tsakani bringing the vibes',
             likes: Math.floor(Math.random() * 180) + 120,
             comments: Math.floor(Math.random() * 25) + 10
         },
         {
-            image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=400&fit=crop&crop=center',
+            fileId: '1KdVFw3wMn8jPfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq', // Example ID - replace with your image
             caption: '✨ Studio vibes with the squad - Two Tales of Happiness, Friendship & Brotherhood',
             likes: Math.floor(Math.random() * 160) + 100,
             comments: Math.floor(Math.random() * 20) + 8
         },
         {
-            image: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=400&fit=crop&crop=center',
+            fileId: '1QwErTyUiOpLq8jPfQqKzT8xY2mNbVcXzAsD5ErTyU', // Example ID - replace with your image
             caption: '🎵 Live session energy! Thank you to everyone who came through 🙌',
             likes: Math.floor(Math.random() * 220) + 180,
             comments: Math.floor(Math.random() * 35) + 20
         },
         {
-            image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop&crop=center',
+            fileId: '1PfQqKzT8xY2mNbVcXzAsD5ErTyUiOpLq8jPfQqKzT8', // Example ID - replace with your image
             caption: '🔊 Setting up for another epic Tsakani Sessions experience',
             likes: Math.floor(Math.random() * 140) + 90,
             comments: Math.floor(Math.random() * 18) + 5
+        },
+        {
+            fileId: '1AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUu', // Example ID - replace with your image
+            caption: '🌍 Ubuntu spirit in action - Music brings us together',
+            likes: Math.floor(Math.random() * 190) + 130,
+            comments: Math.floor(Math.random() * 28) + 12
         }
     ];
+    
+    // Convert Google Drive file IDs to direct image URLs
+    const instagramPosts = tsakaniImages.map(item => ({
+        image: `https://drive.google.com/uc?id=${item.fileId}&export=view`,
+        caption: item.caption,
+        likes: item.likes,
+        comments: item.comments,
+        fileId: item.fileId
+    }));
     
     // Preload images with better error handling
     const imagePromises = instagramPosts.map((post, index) => {
