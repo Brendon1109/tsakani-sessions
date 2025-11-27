@@ -1,14 +1,14 @@
 :root {
     /* Vibrant African Colors */
-    --primary-color: #d2691e; /* Vibrant chocolate */
-    --secondary-color: #ff6347; /* Bright tomato */
-    --accent-color: #ff4500; /* Bright orange red */
-    --accent-light: #ffa500; /* Bright orange */
-    --accent-dark: #ff1493; /* Deep pink */
-    --gold: #ffd700; /* Bright gold */
-    --terra-cotta: #ff7f50; /* Bright coral */
-    --savanna: #32cd32; /* Lime green */
-    --sunset: #ff6347; /* Bright sunset */
+    --primary-color: #C7511F; /* Africanism: warm clay */
+    --secondary-color: #0E6B6B; /* Rhythm: teal groove */
+    --accent-color: #E38C0A; /* Ubuntu: golden unity */
+    --accent-light: #F5B81B; /* Ubuntu light */
+    --accent-dark: #B53C2B; /* Tsakani: deep ember */
+    --gold: #FFD166; /* Soft gold */
+    --terra-cotta: #D97A4A; /* Earthy coral */
+    --savanna: #2F9345; /* Verdant green */
+    --sunset: #FB5607; /* Sunset orange */
     --success: #228b22;
     --error: #dc143c;
     --text-dark: #2c1810;
@@ -19,10 +19,15 @@
     --background-dark: #2c1810;
     --surface: #ffffff;
     --surface-alt: #f5f5dc; /* Beige */
-    --gradient-primary: linear-gradient(135deg, #d2691e 0%, #ff6347 40%, #ff4500 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(255,215,0,0.2) 0%, rgba(255,99,71,0.3) 60%, rgba(255,69,0,0.2) 100%);
-    --gradient-warm: linear-gradient(135deg, #ff4500 0%, #ffd700 100%);
-    --gradient-african: linear-gradient(45deg, #ff7f50 0%, #ffd700 50%, #ff4500 100%);
+    --gradient-primary: linear-gradient(135deg, #C7511F 0%, #E38C0A 40%, #0E6B6B 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(227,140,10,0.25) 0%, rgba(14,107,107,0.28) 60%, rgba(181,60,43,0.22) 100%);
+    --gradient-warm: linear-gradient(135deg, #E38C0A 0%, #FFD166 100%);
+    --gradient-african: linear-gradient(45deg, #C7511F 0%, #E38C0A 33%, #0E6B6B 66%, #B53C2B 100%);
+    /* Theme accents inspired by Africanism • Rhythm • Ubuntu • Tsakani */
+    --theme-africanism: linear-gradient(135deg, #B53C2B, #C7511F);
+    --theme-rhythm: linear-gradient(135deg, #0E6B6B, #13A6A6);
+    --theme-ubuntu: linear-gradient(135deg, #E38C0A, #FFD166);
+    --theme-tsakani: linear-gradient(135deg, #2F9345, #FB5607);
     --gradient-card: linear-gradient(145deg, #ffffff 0%, #f5f5dc 100%);
     --shadow: 0 10px 25px rgba(44, 24, 16, 0.1);
     --shadow-hover: 0 20px 40px rgba(44, 24, 16, 0.15);
@@ -376,7 +381,7 @@ p {
     font-weight: 900;
     margin-bottom: 1rem;
     line-height: 1.1;
-    background: linear-gradient(45deg, #ff4500 0%, #ffd700 30%, #ff6347 60%, #ff1493 100%);
+    background: linear-gradient(45deg, #C7511F 0%, #FFD166 30%, #0E6B6B 60%, #B53C2B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
