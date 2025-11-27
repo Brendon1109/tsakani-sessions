@@ -323,7 +323,8 @@
                         if (typeof item === 'string') {
                             return `<div class=\"media-card\"><img src=\"${item}\" alt=\"Media thumbnail\" loading=\"lazy\" /></div>`;
                         }
-                        return `<div class=\"media-card\">${item.link ? `<a href=\"${item.link}\" target=\"_blank\" aria-label=\"Open media\">` : ''}<img src=\"${item.thumb}\" alt=\"${item.title || 'Media thumbnail'}\" loading=\"lazy\" />${item.link ? '</a>' : ''}</div>`;
+                        const cls = gridId === 'video-grid' ? 'media-card video' : 'media-card';
+                        return `<div class=\"${cls}\">${item.link ? `<a href=\"${item.link}\" target=\"_blank\" aria-label=\"Open media\">` : ''}<img src=\"${item.thumb}\" alt=\"${item.title || 'Media thumbnail'}\" loading=\"lazy\" />${item.link ? '</a>' : ''}</div>`;
                     }).join('');
                 }
 

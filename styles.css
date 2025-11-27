@@ -39,6 +39,7 @@ body {
     color: var(--text-dark);
     overflow-x: hidden;
     font-size: 16px;
+    --hero-bg-image: none; /* set to url('assets/tsakani-hero.jpg') to enable */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -84,6 +85,33 @@ p {
     backdrop-filter: blur(15px);
     z-index: 1000;
     transition: var(--transition);
+
+/* Play overlay for video thumbnails */
+.media-card.video::after {
+    content: '\f04b'; /* Font Awesome play icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    color: var(--text-light);
+    background: rgba(0,0,0,0.45);
+    border: 2px solid rgba(255,255,255,0.7);
+    border-radius: 50%;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.media-card.video:hover::after {
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 16px 32px rgba(10,50,120,0.35);
+    background: rgba(10,50,120,0.55);
+}
     border-bottom: 1px solid rgba(14, 95, 95, 0.12);
     box-shadow: 0 2px 18px rgba(14, 95, 95, 0.08);
 }
@@ -327,7 +355,10 @@ p {
     right: 0;
     bottom: 0;
     background-image: 
+        var(--hero-bg-image),
         url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="tribal-main" patternUnits="userSpaceOnUse" width="60" height="60"><path d="M10,10 L30,5 L50,10 L45,20 L30,25 L15,20 Z M5,35 L25,30 L45,35 L40,45 L25,50 L10,45 Z" fill="%23daa520" opacity="0.08"/><circle cx="30" cy="30" r="3" fill="%23cd853f" opacity="0.1"/></pattern></defs><rect width="200" height="200" fill="url(%23tribal-main)"/></svg>');
+    background-size: cover, auto;
+    background-position: center, center;
     opacity: 0.4;
     pointer-events: none;
     animation: tribalFloat 20s ease-in-out infinite;
