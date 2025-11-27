@@ -2566,3 +2566,70 @@ button:focus-visible {
         padding: 0.3rem 0.6rem;
     }
 }
+
+/* Africanism Banner */
+.africanism-banner {
+    background: var(--background-warm);
+    padding: 0;
+}
+
+.african-pattern {
+    --pattern-image: none; /* set to a URL to use an image */
+    position: relative;
+    min-height: 120px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, transparent 0 4%, rgba(0,0,0,0.06) 4% 6%, transparent 6% 10%) top/100% 12px,
+        linear-gradient(90deg, transparent 0 4%, rgba(0,0,0,0.06) 4% 6%, transparent 6% 10%) bottom/100% 12px,
+        var(--gradient-african);
+    background-repeat: no-repeat;
+    color: var(--text-dark);
+}
+
+.african-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--pattern-tribal);
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.african-pattern::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--pattern-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.pattern-content {
+    position: relative;
+    padding: 22px 24px;
+    width: min(1100px, 92%);
+    border: 2px solid rgba(255, 215, 0, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(44, 24, 16, 0.12);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(3px);
+}
+
+.pattern-text {
+    display: inline-block;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #3b2b20;
+}
+
+@media (max-width: 640px) {
+    .african-pattern { min-height: 100px; }
+    .pattern-content { padding: 18px; border-radius: 12px; }
+    .pattern-text { font-size: 0.85rem; letter-spacing: 1.5px; }
+}
