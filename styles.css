@@ -98,8 +98,8 @@ p {
     backdrop-filter: blur(15px);
     z-index: 1000;
     transition: var(--transition);
-    border-bottom: 1px solid rgba(255, 140, 0, 0.1);
-    box-shadow: 0 2px 20px rgba(255, 140, 0, 0.1);
+    border-bottom: 1px solid rgba(14, 95, 95, 0.12);
+    box-shadow: 0 2px 18px rgba(14, 95, 95, 0.08);
 }
 
 .nav-container {
@@ -244,16 +244,15 @@ p {
 .book-now-btn {
     background: var(--gradient-primary);
     color: white !important;
-    padding: 14px 28px;
-    border-radius: 30px;
+    padding: 12px 24px;
+    border-radius: 28px;
     font-weight: 700;
-    font-size: 1rem;
-    transition: all 0.4s ease;
-    border: 2px solid transparent;
-    box-shadow: var(--shadow-accent);
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(14,95,95,0.25);
+    box-shadow: 0 6px 14px rgba(14, 95, 95, 0.18);
     position: relative;
     overflow: hidden;
-    animation: pulse-glow 3s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
@@ -265,11 +264,7 @@ p {
     }
 }
 
-.book-now-btn::before {
-    content: '🎵';
-    margin-right: 8px;
-    animation: bounce 2s ease-in-out infinite;
-}
+.book-now-btn::before { content: none; }
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
@@ -284,10 +279,9 @@ p {
 }
 
 .book-now-btn:hover {
-    transform: translateY(-3px) scale(1.05);
+    transform: translateY(-1px);
     border-color: var(--accent-color);
-    animation: none;
-    box-shadow: 0 12px 35px rgba(14, 95, 95, 0.45);
+    box-shadow: 0 8px 22px rgba(14, 95, 95, 0.28);
 }
 
 .book-now-btn::after {
