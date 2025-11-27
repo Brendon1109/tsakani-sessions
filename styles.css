@@ -1,44 +1,30 @@
 :root {
-    /* Vibrant African Colors */
-    /* Refined Earth + Teal + Ember + Subtle Brass palette */
-    --primary-color: #0E5F5F; /* Deep teal primary */
-    --secondary-color: #8C3B19; /* Earth/clay anchor */
-    --accent-color: #B6452E; /* Ember accent */
-    --accent-light: #127A7A; /* Lighter teal */
-    --accent-dark: #6A2811; /* Dark clay for depth */
-    --gold: #C8A24A; /* Subtle brass */
-    --terra-cotta: #A95330; /* Muted warm support */
-    --savanna: #2E7040; /* Deep green balance */
-    --sunset: #B6452E; /* Reuse ember */
-    --success: #228b22;
-    --error: #dc143c;
-    --text-dark: #2c1810;
-    --text-medium: #5d4037;
-    --text-light: #ffffff;
-    --background-light: #fdf6e3; /* Warm sand */
-    --background-warm: #fff8dc; /* Cornsilk */
-    --background-dark: #2c1810;
-    --surface: #ffffff;
-    --surface-alt: #f5f5dc; /* Beige */
-    --gradient-primary: linear-gradient(135deg, #0E5F5F 0%, #8C3B19 100%);
-    --gradient-hero: linear-gradient(120deg, #0E5F5F 0%, #2E7040 55%, #8C3B19 100%);
-    --gradient-warm: linear-gradient(135deg, #0E5F5F 0%, #2E7040 100%);
-    --gradient-african: linear-gradient(135deg, #0E5F5F 0%, #8C3B19 50%, #B6452E 100%);
-    /* Simplified theme accents */
-    --theme-teal: linear-gradient(135deg, #0E5F5F, #127A7A);
-    --theme-earth: linear-gradient(135deg, #8C3B19, #6A2811);
-    --theme-ember: linear-gradient(135deg, #B6452E, #6A2811);
-    --theme-brass: linear-gradient(135deg, #C8A24A, #8C3B19);
-    --gradient-card: linear-gradient(145deg, #ffffff 0%, #f5f5dc 100%);
-    --shadow: 0 10px 25px rgba(44, 24, 16, 0.1);
-    --shadow-hover: 0 20px 40px rgba(44, 24, 16, 0.15);
-    --shadow-accent: 0 8px 25px rgba(14, 95, 95, 0.25);
+    /* Minimal neutral + royal palette */
+    --primary-color: #1E40AF; /* Royal Deep Blue */
+    --secondary-color: #D4AF37; /* Elegant Gold */
+    --accent-color: #1E40AF; /* Accent uses blue */
+    --accent-light: #2E5AE0; /* Lighter royal */
+    --accent-dark: #162B7A; /* Darker royal */
+    --gold: #D4AF37; /* Gold */
+    --text-dark: #0A0A0A; /* Jet Black */
+    --text-medium: #3a3a3a; /* Medium gray */
+    --text-light: #ffffff; /* White */
+    --background-light: #F5F5F5; /* Soft Gray */
+    --background-warm: #FFFFFF; /* White */
+    --background-dark: #0A0A0A; /* Jet Black */
+    --surface: #FFFFFF; /* White */
+    --surface-alt: #F5F5F5; /* Soft Gray */
+    --gradient-primary: linear-gradient(135deg, #1E40AF 0%, #2E5AE0 100%);
+    --gradient-hero: linear-gradient(120deg, #1E40AF 0%, #2E5AE0 50%, #1E40AF 100%);
+    --gradient-warm: linear-gradient(135deg, #1E40AF 0%, #162B7A 100%);
+    --gradient-african: linear-gradient(135deg, #1E40AF 0%, #2E5AE0 50%, #162B7A 100%);
+    --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F5F5F5 100%);
+    --shadow: 0 10px 25px rgba(10, 10, 10, 0.08);
+    --shadow-hover: 0 20px 40px rgba(10, 10, 10, 0.12);
+    --shadow-accent: 0 8px 25px rgba(30, 64, 175, 0.25);
     --border-radius: 12px;
     --border-radius-lg: 16px;
-    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    
-    /* African Pattern Variables */
-    --pattern-tribal: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 L30,10 L40,20 L30,30 Z M60,20 L70,10 L80,20 L70,30 Z M40,50 L50,40 L60,50 L50,60 Z" fill="%23daa520" opacity="0.1"/></svg>');
+    --transition: all 0.3s ease;
 }
 
 * {
@@ -434,16 +420,16 @@ p {
     background: var(--gradient-primary);
     color: white;
     border: none;
-    box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(10, 50, 120, 0.35);
     position: relative;
     overflow: hidden;
     font-weight: 700;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: var(--gradient-african);
+    background: var(--gradient-primary);
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6);
+    box-shadow: 0 10px 30px rgba(10, 50, 120, 0.5);
 }
 
 .btn-pulse {
@@ -452,10 +438,10 @@ p {
 
 @keyframes buttonPulse {
     0%, 100% {
-        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+        box-shadow: 0 6px 20px rgba(10, 50, 120, 0.35);
     }
     50% {
-        box-shadow: 0 6px 20px rgba(255, 69, 0, 0.8), 0 0 0 10px rgba(255, 69, 0, 0.1);
+        box-shadow: 0 6px 20px rgba(10, 50, 120, 0.6), 0 0 0 10px rgba(212, 175, 55, 0.15);
     }
 }
 
@@ -469,7 +455,7 @@ p {
 .btn-accent:hover:not(:disabled) {
     background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%);
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(245, 101, 0, 0.3);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
 }
 
 .btn-secondary {
@@ -486,9 +472,9 @@ p {
 }
 
 .btn-primary:hover {
-    background: var(--gradient-warm);
+    background: var(--gradient-primary);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(10, 50, 120, 0.45);
     color: var(--text-light);
 }
 
@@ -516,7 +502,7 @@ p {
     color: var(--text-light);
     border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(10, 50, 120, 0.3);
 }
 
 .btn-whatsapp {
@@ -832,6 +818,7 @@ section {
 .video-grid {
     display: grid;
     gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .video-item {
@@ -852,11 +839,33 @@ section {
     border-radius: var(--border-radius);
 }
 
-.photo-grid {
+.photo-grid,
+.image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1rem;
 }
+.media-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+}
+
+.media-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+.media-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Reveal-on-scroll animations */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.in-view { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 768px) {
     .photo-grid {

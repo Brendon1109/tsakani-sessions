@@ -154,21 +154,11 @@
                 <div class="media-layout">
                     <div class="media-block">
                         <h3 class="media-title">Latest Videos</h3>
-                        <div class="gallery-grid video-grid">
-                            <!-- Placeholder examples -->
-                            <div class="media-card"><div class="media-thumb">Video 1</div></div>
-                            <div class="media-card"><div class="media-thumb">Video 2</div></div>
-                            <div class="media-card"><div class="media-thumb">Video 3</div></div>
-                        </div>
+                        <div id="video-grid" class="gallery-grid video-grid" aria-live="polite"></div>
                     </div>
                     <div class="media-block">
                         <h3 class="media-title">Follow Our Journey</h3>
-                        <div class="gallery-grid image-grid">
-                            <!-- Placeholder examples -->
-                            <div class="media-card"><div class="media-thumb">Image 1</div></div>
-                            <div class="media-card"><div class="media-thumb">Image 2</div></div>
-                            <div class="media-card"><div class="media-thumb">Image 3</div></div>
-                        </div>
+                        <div id="image-grid" class="gallery-grid image-grid" aria-live="polite"></div>
                     </div>
                 </div>
             </div>
@@ -287,6 +277,52 @@
                     toggle.classList.toggle('active');
                 });
             }
+
+                // Smooth section fade-in on scroll
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                        }
+                    });
+                }, { threshold: 0.12 });
+
+                document.querySelectorAll('section, .card, .difference-item, .media-card, .contact-item').forEach(el => {
+                    el.classList.add('reveal');
+                    observer.observe(el);
+                });
+
+                // Thumbnail loader: replace arrays below with your actual URLs
+                const videoThumbs = [
+                    // Example YouTube thumbnails: https://img.youtube.com/vi/<VIDEO_ID>/hqdefault.jpg
+                    // 'https://img.youtube.com/vi/VIDEO_ID_1/hqdefault.jpg',
+                    // 'https://img.youtube.com/vi/VIDEO_ID_2/hqdefault.jpg',
+                    // 'https://img.youtube.com/vi/VIDEO_ID_3/hqdefault.jpg'
+                ];
+
+                const imageThumbs = [
+                    // Add direct image URLs (PNG/JPG/WebP) from your Drive/CDN
+                    // 'https://your-cdn.com/path/image1.jpg',
+                    // 'https://your-cdn.com/path/image2.jpg',
+                    // 'https://your-cdn.com/path/image3.jpg'
+                ];
+
+                function renderGrid(gridId, urls) {
+                    const grid = document.getElementById(gridId);
+                    if (!grid) return;
+                    if (!urls.length) {
+                        grid.innerHTML = '<div class="media-card"><div class="media-thumb">Add thumbnails to populate</div></div>';
+                        return;
+                    }
+                    grid.innerHTML = urls.map(url => `
+                        <div class="media-card">
+                            <img src="${url}" alt="Media thumbnail" loading="lazy" />
+                        </div>
+                    `).join('');
+                }
+
+                renderGrid('video-grid', videoThumbs);
+                renderGrid('image-grid', imageThumbs);
         </script>
     </body>
     </html>
