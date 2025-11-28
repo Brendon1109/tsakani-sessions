@@ -3274,6 +3274,34 @@ button:focus-visible {
     to { filter: drop-shadow(0 8px 16px rgba(255,215,0,0.2)) brightness(1.1); }
 }
 
+/* Brand text styling */
+.brand-text {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.brand-link:hover .brand-text {
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.hero-title-fallback {
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    background: linear-gradient(135deg, var(--text-light) 0%, var(--accent-color) 50%, var(--text-light) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-primary);
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    margin: 0;
+}
+
 /* Horizontal Contact Layout - Icon Only */
 .contact-horizontal {
     display: flex;
