@@ -3274,44 +3274,63 @@ button:focus-visible {
     to { filter: drop-shadow(0 8px 16px rgba(255,215,0,0.2)) brightness(1.1); }
 }
 
-/* Horizontal Contact Layout */
+/* Horizontal Contact Layout - Icon Only */
 .contact-horizontal {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xl);
     justify-content: center;
-    max-width: 1000px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
-.contact-item-horizontal {
+.contact-icon-only {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
-    padding: var(--space-lg);
+    justify-content: center;
+    width: 80px;
+    height: 80px;
     background: var(--bg-elevated);
-    border-radius: var(--border-radius);
+    border-radius: 50%;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
-    min-width: 200px;
-    flex: 1;
-}
-
-.contact-item-horizontal:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.contact-item-horizontal .contact-icon {
-    font-size: 2rem;
+    text-decoration: none;
     color: var(--accent-color);
-    margin-bottom: var(--space-sm);
+    font-size: 2rem;
+    position: relative;
 }
 
-.contact-item-horizontal h4 {
-    margin-bottom: var(--space-sm);
-    color: var(--text-dark);
+.contact-icon-only:hover {
+    transform: translateY(-8px) scale(1.1);
+    box-shadow: var(--shadow-xl);
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.contact-icon-only:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 4px;
+}
+
+/* Specific icon colors on hover */
+.contact-icon-only:hover .fa-phone {
+    color: #25d366;
+}
+
+.contact-icon-only:hover .fa-whatsapp {
+    color: #25d366;
+}
+
+.contact-icon-only:hover .fa-envelope {
+    color: #ea4335;
+}
+
+.contact-icon-only:hover .fa-instagram {
+    color: #e4405f;
+}
+
+.contact-icon-only:hover .fa-youtube {
+    color: #ff0000;
 }
 
 /* Horizontal Media Layout */
@@ -3372,14 +3391,13 @@ button:focus-visible {
     }
     
     .contact-horizontal {
-        flex-direction: column;
-        align-items: center;
         gap: var(--space-lg);
     }
     
-    .contact-item-horizontal {
-        width: 100%;
-        max-width: 300px;
+    .contact-icon-only {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
     }
     
     .media-layout-horizontal {
