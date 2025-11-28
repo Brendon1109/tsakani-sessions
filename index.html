@@ -187,8 +187,8 @@
                     <p>Choose your perfect Tsakani Sessions experience</p>
                 </header>
                 <div class="booking-options">
-                    <button onclick="openBookingModal('full-session')" class="btn btn-primary btn-large">
-                        <i class="fas fa-fire"></i> Book Full Experience
+                    <button onclick="testModal('full-session')" class="btn btn-primary btn-large">
+                        <i class="fas fa-fire"></i> Book Full Experience (TEST)
                     </button>
                     <button onclick="openBookingModal('dj-only')" class="btn btn-outline btn-large">
                         <i class="fas fa-music"></i> DJ Services Only
@@ -395,5 +395,17 @@
                 });
         </script>
         <script src="script.js"></script>
+        <script>
+            // Test modal function
+            window.testModal = function(serviceType) {
+                alert('Test modal called: ' + serviceType);
+                const modal = document.getElementById('booking-modal');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    document.getElementById('booking-title').textContent = 'Test Booking: ' + serviceType;
+                    document.getElementById('booking-form-content').innerHTML = '<p>Test form for ' + serviceType + '</p>';
+                }
+            };
+        </script>
     </body>
     </html>
