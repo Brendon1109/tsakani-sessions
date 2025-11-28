@@ -1508,17 +1508,79 @@ section {
 }
 
 /* Footer */
-.footer {
+.footer,
+.site-footer {
     background: var(--background-dark);
     color: var(--text-light);
     padding: 3rem 0 1rem;
 }
 
-.footer-content {
+.footer-content,
+.footer-inner {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2rem;
     margin-bottom: 2rem;
+}
+
+.footer-brand h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.footer-brand p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.social-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-row a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.social-row a:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.footer-links h4 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
 }
 
 .footer-section h3,
@@ -3127,6 +3189,57 @@ button:focus-visible {
     font-size: 0.85rem;
     line-height: 1.4;
     margin: 0 0 0.5rem 0;
+}
+
+/* What Makes Us Different Footer Section */
+.what-makes-different {
+    grid-column: 1 / -1;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.what-makes-different h4 {
+    color: var(--accent-color);
+    margin-bottom: var(--space-lg);
+    font-size: 1.1rem;
+}
+
+.differentiator {
+    margin-bottom: var(--space-lg);
+}
+
+.differentiator h5 {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.differentiator h5 i {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.differentiator p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .what-makes-different {
+        margin-top: var(--space-lg);
+        padding-top: var(--space-lg);
+    }
+    
+    .differentiator {
+        margin-bottom: var(--space-md);
+    }
 }
 
 .instagram-stats {

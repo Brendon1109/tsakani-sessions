@@ -256,16 +256,88 @@
         <div id="booking-modal" class="modal" role="dialog" aria-labelledby="booking-title">
             <div class="modal-content booking-modal-content">
                 <div class="modal-header">
-                    <h3 id="booking-title">Book Your Session</h3>
-                    <button class="modal-close close" aria-label="Close booking form">&times;</button>
+                    <h3 id="booking-title">Book Tsakani Sessions</h3>
+                    <button class="modal-close close" aria-label="Close booking form" onclick="closeBookingModal()">&times;</button>
                 </div>
                 <form id="booking-form" class="booking-form">
-                    <div id="booking-form-content">
-                        <!-- Form content will be populated by JavaScript -->
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-type">Event Type *</label>
+                        <select id="event-type" name="event-type" required>
+                            <option value="">Select event type...</option>
+                            <option value="private-party">Private Party</option>
+                            <option value="corporate-event">Corporate Event</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="birthday">Birthday Party</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-date">Preferred Date *</label>
+                        <input type="date" id="event-date" name="event-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="venue">Venue/Location *</label>
+                        <input type="text" id="venue" name="venue" required placeholder="Event venue or location">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget">Estimated Budget</label>
+                        <select id="budget" name="budget">
+                            <option value="">Select budget range...</option>
+                            <option value="under-5k">Under R5,000</option>
+                            <option value="5k-10k">R5,000 - R10,000</option>
+                            <option value="10k-20k">R10,000 - R20,000</option>
+                            <option value="20k-plus">R20,000+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="services">Services Needed</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="dj-services" name="services" value="dj">
+                                <label for="dj-services">DJ Services</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sound-system" name="services" value="sound">
+                                <label for="sound-system">Sound System</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lighting" name="services" value="lighting">
+                                <label for="lighting">Lighting</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="mc-services" name="services" value="mc">
+                                <label for="mc-services">MC Services</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Additional Details</label>
+                        <textarea id="message" name="message" placeholder="Tell us more about your event, special requests, or any questions you have..."></textarea>
+                    </div>
+                    
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Send Booking Request</button>
-                        <button type="button" class="btn btn-outline" onclick="document.getElementById('booking-modal').style.display='none'">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit Booking Request</button>
+                        <button type="button" class="btn btn-outline" onclick="closeBookingModal()">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -297,6 +369,21 @@
                         <li>+27 76 996 1477</li>
                         <li>tsakanisessions@gmail.com</li>
                     </ul>
+                </div>
+                <div class="footer-section what-makes-different">
+                    <h4>What Makes Us Different</h4>
+                    <div class="differentiator">
+                        <h5><i class="fas fa-users"></i> Community-First</h5>
+                        <p>We hire local talent and give emerging artists a stage.</p>
+                    </div>
+                    <div class="differentiator">
+                        <h5><i class="fas fa-heart"></i> Authentic Vibes</h5>
+                        <p>Every performance and beat matters — no filler, just pure energy.</p>
+                    </div>
+                    <div class="differentiator">
+                        <h5><i class="fas fa-handshake"></i> Two-Tale Format</h5>
+                        <p>Each event built around themes of happiness, friendship & brotherhood.</p>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">

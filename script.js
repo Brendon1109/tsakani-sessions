@@ -1030,6 +1030,131 @@ async function loadInstagramPlaceholders() {
 
 // Clean, simple Instagram display - no complex loading needed
 
+// Booking Modal Functions
+function openBookingModal() {
+    const modal = document.getElementById('booking-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Set minimum date to today
+        const dateInput = document.getElementById('event-date');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+    }
+}
+
+function closeBookingModal() {
+    const modal = document.getElementById('booking-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Reset form
+        const form = document.getElementById('booking-form');
+        if (form) {
+            form.reset();
+        }
+    }
+}
+
+// Handle booking form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const bookingForm = document.getElementById('booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', handleBookingSubmission);
+    }
+    
+    // Close modal when clicking outside
+    const modal = document.getElementById('booking-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeBookingModal();
+            }
+        });
+    }
+});
+
+function handleBookingSubmission(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        eventType: formData.get('event-type'),
+        eventDate: formData.get('event-date'),
+        venue: formData.get('venue'),
+        budget: formData.get('budget'),
+        services: formData.getAll('services'),
+        message: formData.get('message')
+    };
+    
+    // Create WhatsApp message
+    const whatsappMessage = createWhatsAppBookingMessage(data);
+    const phoneNumber = '27730901787';
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+    
+    // Show success message
+    showNotification('Booking request sent! We\'ll get back to you soon.', 'success');
+    
+    // Close modal
+    closeBookingModal();
+}
+
+function createWhatsAppBookingMessage(data) {
+    let message = `🎵 *TSAKANI SESSIONS BOOKING REQUEST* 🎵\n\n`;
+    message += `👤 *Name:* ${data.name}\n`;
+    message += `📧 *Email:* ${data.email}\n`;
+    message += `📱 *Phone:* ${data.phone}\n\n`;
+    message += `🎉 *Event Type:* ${data.eventType}\n`;
+    message += `📅 *Date:* ${data.eventDate}\n`;
+    message += `📍 *Venue:* ${data.venue}\n`;
+    
+    if (data.budget) {
+        message += `💰 *Budget:* ${data.budget}\n`;
+    }
+    
+    if (data.services && data.services.length > 0) {
+        message += `🎛️ *Services Needed:* ${data.services.join(', ')}\n`;
+    }
+    
+    if (data.message) {
+        message += `\n📝 *Additional Details:*\n${data.message}\n`;
+    }
+    
+    message += `\n✨ Looking forward to creating an amazing experience together!`;
+    
+    return message;
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type} show`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span>${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
 // Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
