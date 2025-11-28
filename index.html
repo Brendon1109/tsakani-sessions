@@ -44,10 +44,8 @@
                     <ul class="nav-menu">
                         <li><a href="#home" class="nav-link">Home</a></li>
                         <li><a href="#services" class="nav-link">Services</a></li>
-                        <li><a href="#difference" class="nav-link">What Makes Us Different</a></li>
-                        <li><a href="#gallery" class="nav-link">Gallery</a></li>
                         <li><a href="#contact" class="nav-link">Contact</a></li>
-                        <li><button onclick="showBookingModal('full-session')" class="btn btn-primary nav-cta">Book Now</button></li>
+                        <li><button onclick="showBookingModal('full-session', event)" class="btn btn-primary nav-cta">Book Now</button></li>
                     </ul>
                 </nav>
             </div>
@@ -92,7 +90,7 @@
                             <li>Two-Tale Themed Experience</li>
                             <li>Full Production & Equipment</li>
                         </ul>
-                        <button onclick="showBookingModal('full-session')" class="btn btn-secondary">Book Experience</button>
+                        <button onclick="showBookingModal('full-session', event)" class="btn btn-secondary">Book Experience</button>
                     </article>
                     <article class="card service-card">
                         <div class="card-icon"><i class="fas fa-music"></i></div>
@@ -104,7 +102,7 @@
                             <li>Community-First Selection</li>
                             <li>Authentic Storytelling</li>
                         </ul>
-                        <button onclick="showBookingModal('dj-only')" class="btn btn-secondary">Book Performance</button>
+                        <button onclick="showBookingModal('dj-only', event)" class="btn btn-secondary">Book Performance</button>
                     </article>
                     <article class="card service-card">
                         <div class="card-icon"><i class="fas fa-video"></i></div>
@@ -116,7 +114,7 @@
                             <li>Storytelling Photography</li>
                             <li>Brand Integration</li>
                         </ul>
-                        <button onclick="showBookingModal('content-only')" class="btn btn-secondary">Book Content</button>
+                        <button onclick="showBookingModal('content-only', event)" class="btn btn-secondary">Book Content</button>
                     </article>
                 </div>
             </div>
@@ -187,13 +185,13 @@
                     <p>Choose your perfect Tsakani Sessions experience</p>
                 </header>
                 <div class="booking-options">
-                    <button onclick="showBookingModal('full-session')" class="btn btn-primary btn-large">
+                    <button onclick="showBookingModal('full-session', event)" class="btn btn-primary btn-large">
                         <i class="fas fa-fire"></i> Book Full Experience
                     </button>
-                    <button onclick="showBookingModal('dj-only')" class="btn btn-outline btn-large">
+                    <button onclick="showBookingModal('dj-only', event)" class="btn btn-outline btn-large">
                         <i class="fas fa-music"></i> DJ Services Only
                     </button>
-                    <button onclick="showBookingModal('content-only')" class="btn btn-outline btn-large">
+                    <button onclick="showBookingModal('content-only', event)" class="btn btn-outline btn-large">
                         <i class="fas fa-video"></i> Content Creation
                     </button>
                 </div>
@@ -231,7 +229,7 @@
                         <li><a href="#services">Full Sessions</a></li>
                         <li><a href="#services">DJ Services</a></li>
                         <li><a href="#services">Content Creation</a></li>
-                        <li><button onclick="showBookingModal('full-session')" style="background: none; border: none; color: inherit; text-decoration: underline; cursor: pointer;">Book Now</button></li>
+                        <li><button onclick="showBookingModal('full-session', event)" style="background: none; border: none; color: inherit; text-decoration: underline; cursor: pointer;">Book Now</button></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -397,38 +395,51 @@
         <script src="script.js"></script>
         <script>
             // Simple booking modal function
-            window.showBookingModal = function(serviceType) {
+            window.showBookingModal = function(serviceType, event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                console.log('showBookingModal called with:', serviceType);
+                
                 const modal = document.getElementById('booking-modal');
                 const title = document.getElementById('booking-title');
                 const formContent = document.getElementById('booking-form-content');
                 
-                if (!modal || !title || !formContent) return;
+                console.log('Modal elements:', {modal: !!modal, title: !!title, formContent: !!formContent});
+                
+                if (!modal || !title || !formContent) {
+                    console.error('Modal elements not found!');
+                    alert('Modal elements not found! Please check the page.');
+                    return;
+                }
                 
                 let titleText = 'Book Your Session';
                 let formHTML = `
                     <div style="margin-bottom: 15px;">
-                        <label>Your Name *</label><br>
-                        <input type="text" name="contact-name" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Your Name *</label>
+                        <input type="text" name="contact-name" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; pointer-events: auto; z-index: 10002;" required>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <label>Email Address *</label><br>
-                        <input type="email" name="contact-email" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Email Address *</label>
+                        <input type="email" name="contact-email" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; pointer-events: auto; z-index: 10002;" required>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <label>Phone Number *</label><br>
-                        <input type="tel" name="contact-phone" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Phone Number *</label>
+                        <input type="tel" name="contact-phone" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; pointer-events: auto; z-index: 10002;" required>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <label>Event Date *</label><br>
-                        <input type="date" name="event-date" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Event Date *</label>
+                        <input type="date" name="event-date" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; pointer-events: auto; z-index: 10002;" required>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <label>Event Location *</label><br>
-                        <input type="text" name="event-location" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Event Location *</label>
+                        <input type="text" name="event-location" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; pointer-events: auto; z-index: 10002;" required>
                     </div>
                     <div style="margin-bottom: 15px;">
-                        <label>Additional Information</label><br>
-                        <textarea name="message" style="width: 100%; padding: 8px; margin-top: 5px; height: 80px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Tell us about your event requirements..."></textarea>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Additional Information</label>
+                        <textarea name="message" style="width: 100%; padding: 12px; height: 100px; border: 2px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; pointer-events: auto; z-index: 10002; resize: vertical;" placeholder="Tell us about your event requirements..."></textarea>
                     </div>
                 `;
                 
@@ -446,8 +457,26 @@
                 
                 title.textContent = titleText;
                 formContent.innerHTML = formHTML;
+                
+                console.log('Setting modal display to flex...');
                 modal.style.display = 'flex';
+                modal.style.visibility = 'visible';
+                modal.style.opacity = '1';
                 document.body.style.overflow = 'hidden';
+                
+                console.log('Modal should now be visible. Style:', modal.style.display);
+                
+                // Force modal to top layer
+                modal.style.zIndex = '9999';
+                
+                // Add a visible test to make sure modal is showing
+                setTimeout(() => {
+                    if (modal.style.display === 'flex') {
+                        console.log('Modal is set to flex display');
+                    } else {
+                        console.error('Modal display was changed!');
+                    }
+                }, 100);
                 
                 // Set minimum date to today
                 const dateInput = document.querySelector('input[name="event-date"]');
@@ -458,11 +487,20 @@
             };
             
             // Close modal function
-            window.closeBookingModal = function() {
+            window.closeBookingModal = function(event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                console.log('Closing modal...');
                 const modal = document.getElementById('booking-modal');
                 if (modal) {
                     modal.style.display = 'none';
+                    modal.style.visibility = 'hidden';
+                    modal.style.opacity = '0';
                     document.body.style.overflow = 'auto';
+                    console.log('Modal closed');
                 }
             };
             
@@ -493,7 +531,13 @@
                 // Close button event
                 const closeBtn = document.querySelector('#booking-modal .close');
                 if (closeBtn) {
-                    closeBtn.addEventListener('click', closeBookingModal);
+                    closeBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        closeBookingModal();
+                    });
+                    closeBtn.style.cursor = 'pointer';
+                    closeBtn.style.zIndex = '10001';
                 }
                 
                 // Click outside to close
@@ -505,6 +549,24 @@
                         }
                     });
                 }
+                
+                // Prevent modal content clicks from closing modal
+                const modalContent = document.querySelector('#booking-modal .modal-content');
+                if (modalContent) {
+                    modalContent.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
+                
+                // Add ESC key to close modal
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        const modal = document.getElementById('booking-modal');
+                        if (modal && modal.style.display === 'flex') {
+                            closeBookingModal();
+                        }
+                    }
+                });
             });
         </script>
     </body>
