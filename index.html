@@ -187,13 +187,13 @@
                     <p>Choose your perfect Tsakani Sessions experience</p>
                 </header>
                 <div class="booking-options">
-                    <button onclick="testModal('full-session')" class="btn btn-primary btn-large">
-                        <i class="fas fa-fire"></i> Book Full Experience (TEST)
+                    <button onclick="showBookingModal('full-session')" class="btn btn-primary btn-large">
+                        <i class="fas fa-fire"></i> Book Full Experience
                     </button>
-                    <button onclick="openBookingModal('dj-only')" class="btn btn-outline btn-large">
+                    <button onclick="showBookingModal('dj-only')" class="btn btn-outline btn-large">
                         <i class="fas fa-music"></i> DJ Services Only
                     </button>
-                    <button onclick="openBookingModal('content-only')" class="btn btn-outline btn-large">
+                    <button onclick="showBookingModal('content-only')" class="btn btn-outline btn-large">
                         <i class="fas fa-video"></i> Content Creation
                     </button>
                 </div>
@@ -396,16 +396,116 @@
         </script>
         <script src="script.js"></script>
         <script>
-            // Test modal function
-            window.testModal = function(serviceType) {
-                alert('Test modal called: ' + serviceType);
+            // Simple booking modal function
+            window.showBookingModal = function(serviceType) {
                 const modal = document.getElementById('booking-modal');
-                if (modal) {
-                    modal.style.display = 'flex';
-                    document.getElementById('booking-title').textContent = 'Test Booking: ' + serviceType;
-                    document.getElementById('booking-form-content').innerHTML = '<p>Test form for ' + serviceType + '</p>';
+                const title = document.getElementById('booking-title');
+                const formContent = document.getElementById('booking-form-content');
+                
+                if (!modal || !title || !formContent) return;
+                
+                let titleText = 'Book Your Session';
+                let formHTML = `
+                    <div style="margin-bottom: 15px;">
+                        <label>Your Name *</label><br>
+                        <input type="text" name="contact-name" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label>Email Address *</label><br>
+                        <input type="email" name="contact-email" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label>Phone Number *</label><br>
+                        <input type="tel" name="contact-phone" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label>Event Date *</label><br>
+                        <input type="date" name="event-date" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label>Event Location *</label><br>
+                        <input type="text" name="event-location" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label>Additional Information</label><br>
+                        <textarea name="message" style="width: 100%; padding: 8px; margin-top: 5px; height: 80px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Tell us about your event requirements..."></textarea>
+                    </div>
+                `;
+                
+                switch(serviceType) {
+                    case 'full-session':
+                        titleText = 'Book Full Tsakani Session';
+                        break;
+                    case 'dj-only':
+                        titleText = 'Book DJ Services';
+                        break;
+                    case 'content-only':
+                        titleText = 'Book Content Creation';
+                        break;
+                }
+                
+                title.textContent = titleText;
+                formContent.innerHTML = formHTML;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                // Set minimum date to today
+                const dateInput = document.querySelector('input[name="event-date"]');
+                if (dateInput) {
+                    const today = new Date().toISOString().split('T')[0];
+                    dateInput.setAttribute('min', today);
                 }
             };
+            
+            // Close modal function
+            window.closeBookingModal = function() {
+                const modal = document.getElementById('booking-modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            };
+            
+            // Handle form submission
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('booking-form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        
+                        const formData = new FormData(form);
+                        let message = 'New booking request:\\n\\n';
+                        for (let [key, value] of formData.entries()) {
+                            if (value) {
+                                const label = key.replace(/-/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase());
+                                message += label + ': ' + value + '\\n';
+                            }
+                        }
+                        
+                        const whatsappURL = 'https://wa.me/27769961477?text=' + encodeURIComponent(message);
+                        window.open(whatsappURL, '_blank');
+                        
+                        closeBookingModal();
+                        alert('Thank you! Your booking request has been sent via WhatsApp.');
+                    });
+                }
+                
+                // Close button event
+                const closeBtn = document.querySelector('#booking-modal .close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeBookingModal);
+                }
+                
+                // Click outside to close
+                const modal = document.getElementById('booking-modal');
+                if (modal) {
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            closeBookingModal();
+                        }
+                    });
+                }
+            });
         </script>
     </body>
     </html>
