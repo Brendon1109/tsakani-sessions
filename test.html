@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Booking Modal</title>
+</head>
+<body>
+    <button onclick="testFunction()">Test Button</button>
+    <button onclick="openBookingModal('full-session')">Book Full Experience</button>
+    
+    <!-- Minimal modal structure -->
+    <div id="booking-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%;">
+            <span onclick="closeBookingModal()" style="float: right; cursor: pointer; font-size: 20px;">&times;</span>
+            <h2 id="booking-title">Book Your Session</h2>
+            <div id="booking-form-content">
+                <!-- Form content will be dynamically generated -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testFunction() {
+            alert('Button click works!');
+        }
+        
+        function openBookingModal(serviceType) {
+            alert('openBookingModal called with: ' + serviceType);
+            console.log('openBookingModal called with serviceType:', serviceType);
+            
+            const modal = document.getElementById('booking-modal');
+            const title = document.getElementById('booking-title');
+            const formContent = document.getElementById('booking-form-content');
+            
+            console.log('Modal elements:', {modal: !!modal, title: !!title, formContent: !!formContent});
+            
+            if (!modal || !title || !formContent) {
+                alert('Modal elements not found!');
+                return;
+            }
+            
+            title.textContent = 'Book ' + serviceType;
+            formContent.innerHTML = '<p>Test form content for ' + serviceType + '</p>';
+            modal.style.display = 'flex';
+        }
+        
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -793,9 +793,17 @@ async function loadInstagramPlaceholders() {
 
 // Booking Modal Functions
 function openBookingModal(serviceType) {
+    console.log('openBookingModal called with serviceType:', serviceType);
     const modal = document.getElementById('booking-modal');
     const title = document.getElementById('booking-title');
     const formContent = document.getElementById('booking-form-content');
+    
+    console.log('Modal elements found:', {modal: !!modal, title: !!title, formContent: !!formContent});
+    
+    if (!modal || !title || !formContent) {
+        console.error('Required modal elements not found!');
+        return;
+    }
     
     let titleText = '';
     let formHTML = '';
@@ -1030,7 +1038,7 @@ function openBookingModal(serviceType) {
     const form = document.getElementById('booking-form');
     form.onsubmit = function(e) {
         e.preventDefault();
-        handleBookingSubmissionOriginal(serviceType);
+        handleBookingSubmission(serviceType);
     };
 }
 
