@@ -1,3 +1,5 @@
+console.log('Tsakani script loading...');
+
 // African-inspired Gamification System
 class TsakaniGamificationEngine {
     constructor() {
@@ -791,8 +793,15 @@ async function loadInstagramPlaceholders() {
 
 // Clean, simple Instagram display - no complex loading needed
 
+// Make booking function globally available
+window.openBookingModal = function(serviceType) {
+    console.log('Window openBookingModal called with serviceType:', serviceType);
+    alert('Booking modal called for: ' + serviceType);
+    openBookingModalInternal(serviceType);
+};
+
 // Booking Modal Functions
-function openBookingModal(serviceType) {
+function openBookingModalInternal(serviceType) {
     console.log('openBookingModal called with serviceType:', serviceType);
     const modal = document.getElementById('booking-modal');
     const title = document.getElementById('booking-title');
