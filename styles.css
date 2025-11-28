@@ -3242,6 +3242,159 @@ button:focus-visible {
     }
 }
 
+/* Brand Logo Styles */
+.brand-logo {
+    height: 40px;
+    width: auto;
+    transition: var(--transition);
+}
+
+.brand-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Hero Logo Styles */
+.hero-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-logo {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    animation: heroGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+    from { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)) brightness(1); }
+    to { filter: drop-shadow(0 8px 16px rgba(255,215,0,0.2)) brightness(1.1); }
+}
+
+/* Horizontal Contact Layout */
+.contact-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xl);
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-item-horizontal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-lg);
+    background: var(--bg-elevated);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    min-width: 200px;
+    flex: 1;
+}
+
+.contact-item-horizontal:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.contact-item-horizontal .contact-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: var(--space-sm);
+}
+
+.contact-item-horizontal h4 {
+    margin-bottom: var(--space-sm);
+    color: var(--text-dark);
+}
+
+/* Horizontal Media Layout */
+.media-layout-horizontal {
+    display: flex;
+    gap: var(--space-xl);
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.youtube-compact {
+    max-width: 400px;
+    flex: 0 0 400px;
+}
+
+.instagram-compact {
+    max-width: 350px;
+    flex: 0 0 350px;
+}
+
+.youtube-compact .youtube-embed-container {
+    background: var(--background-dark);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    text-align: center;
+}
+
+.youtube-compact .youtube-channel-embed iframe {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--border-radius-sm);
+}
+
+.youtube-compact .youtube-channel-info {
+    background: transparent;
+    padding: var(--space-md) 0;
+    box-shadow: none;
+    margin-top: 0;
+}
+
+.youtube-compact .youtube-channel-info h4 {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.youtube-compact .youtube-channel-info p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .brand-logo {
+        height: 32px;
+    }
+    
+    .hero-logo {
+        max-width: 280px;
+    }
+    
+    .contact-horizontal {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-lg);
+    }
+    
+    .contact-item-horizontal {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .media-layout-horizontal {
+        flex-direction: column;
+        gap: var(--space-lg);
+        align-items: center;
+    }
+    
+    .youtube-compact,
+    .instagram-compact {
+        max-width: 100%;
+        flex: 1;
+    }
+}
+
 .instagram-stats {
     display: flex;
     gap: 1rem;

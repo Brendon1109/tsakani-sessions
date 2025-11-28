@@ -31,7 +31,9 @@
         <header class="site-header">
             <div class="container nav-container">
                 <div class="brand">
-                    <a href="#home" class="brand-link">Tsakani Sessions</a>
+                    <a href="#home" class="brand-link">
+                        <img src="620f2ba6-743e-4e7a-a7da-9d96f9aca43d.jpg" alt="Tsakani Sessions" class="brand-logo">
+                    </a>
                 </div>
                 <nav class="main-nav" aria-label="Main navigation">
                     <button class="nav-toggle" aria-label="Toggle navigation">
@@ -56,7 +58,9 @@
             <div class="hero-bg"></div>
             <div class="container hero-inner">
                 <div class="hero-content">
-                    <h1 class="hero-title">TSAKANI Sessions</h1>
+                    <div class="hero-logo-container">
+                        <img src="620f2ba6-743e-4e7a-a7da-9d96f9aca43d.jpg" alt="TSAKANI Sessions" class="hero-logo">
+                    </div>
                     <p class="hero-subtitle">"Two Tales of Happiness, Friendship & Brotherhood"</p>
                     <p class="hero-description">
                         More than an event—it's a cultural movement. Music is our language, connection is our mission, joy is our culture.
@@ -118,55 +122,17 @@
             </div>
         </section>
 
-        <!-- What Makes Us Different -->
-        <section id="difference" class="section alt-section">
-            <div class="container">
-                <header class="section-header">
-                    <h2>What Makes Us Different</h2>
-                </header>
-                <div class="difference-grid">
-                    <div class="difference-item">
-                        <div class="diff-icon"><i class="fas fa-users"></i></div>
-                        <h3>Community-First</h3>
-                        <p>We hire local talent and give emerging artists a stage.</p>
-                    </div>
-                    <div class="difference-item">
-                        <div class="diff-icon"><i class="fas fa-heart"></i></div>
-                        <h3>Authentic Vibes</h3>
-                        <p>Every performance and beat matters — no filler, just pure energy.</p>
-                    </div>
-                    <div class="difference-item">
-                        <div class="diff-icon"><i class="fas fa-star"></i></div>
-                        <h3>Two-Tale Format</h3>
-                        <p>Each event built around themes of happiness, friendship & brotherhood.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Gallery -->
         <section id="gallery" class="section">
             <div class="container">
-                <header class="section-header">
-                    <h2>Latest Content</h2>
-                    <p>Check out our recent sessions and behind-the-scenes content.</p>
-                </header>
-                <div class="media-layout">
-                    <div class="media-block">
-                        <h3 class="media-title">Latest Videos</h3>
-                        <div id="video-grid" class="gallery-grid video-grid" aria-live="polite"></div>
+                <div class="media-layout-horizontal">
+                    <div class="media-block media-block-compact instagram-compact">
+                        <div id="instagram-photos" aria-live="polite"></div>
                     </div>
-                    <div class="media-block">
-                        <h3 class="media-title">Latest YouTube Videos</h3>
+                    <div class="media-block media-block-compact youtube-compact">
                         <div id="youtube-videos" aria-live="polite"></div>
-                    </div>
-                    <div class="media-block media-block-compact">
-                        <h3 class="media-title">Follow Our Journey</h3>
-                        <div id="image-grid" class="gallery-grid image-grid" aria-live="polite"></div>
-                    </div>
-                    <div class="media-block media-block-compact">
-                        <h3 class="media-title">Instagram</h3>
-                        <div id="instagram-photos" class="instagram-compact" aria-live="polite"></div>
                     </div>
                 </div>
             </div>
@@ -179,38 +145,36 @@
                     <h2>Let's Build Something Together</h2>
                     <p>Ready to create unforgettable experiences? We're here to make it happen.</p>
                 </header>
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone contact-icon"></i>
-                            <div>
-                                <h4>Phone</h4>
-                                <div class="contact-links">
-                                    <a href="tel:+27769961477" class="contact-link">Call Now</a>
-                                    <a href="https://wa.me/27769961477" target="_blank" class="contact-link">WhatsApp</a>
-                                </div>
+                <div class="contact-horizontal">
+                    <div class="contact-item-horizontal">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <div class="contact-links">
+                                <a href="tel:+27769961477" class="contact-link">Call Now</a>
+                                <a href="https://wa.me/27769961477" target="_blank" class="contact-link">WhatsApp</a>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope contact-icon"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:tsakanisessions@gmail.com" class="contact-link">tsakanisessions@gmail.com</a>
-                            </div>
+                    </div>
+                    <div class="contact-item-horizontal">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:tsakanisessions@gmail.com" class="contact-link">tsakanisessions@gmail.com</a>
                         </div>
-                        <div class="contact-item">
-                            <i class="fab fa-instagram contact-icon"></i>
-                            <div>
-                                <h4>Instagram</h4>
-                                <a href="https://www.instagram.com/tsakani_sessions?igsh=N2Z3aTk4bGVtYTkz" target="_blank" class="contact-link">@tsakani_sessions</a>
-                            </div>
+                    </div>
+                    <div class="contact-item-horizontal">
+                        <i class="fab fa-instagram contact-icon"></i>
+                        <div>
+                            <h4>Instagram</h4>
+                            <a href="https://www.instagram.com/tsakani_sessions?igsh=N2Z3aTk4bGVtYTkz" target="_blank" class="contact-link">@tsakani_sessions</a>
                         </div>
-                        <div class="contact-item">
-                            <i class="fab fa-youtube contact-icon"></i>
-                            <div>
-                                <h4>YouTube</h4>
-                                <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" target="_blank" class="contact-link">Tsakani Sessions</a>
-                            </div>
+                    </div>
+                    <div class="contact-item-horizontal">
+                        <i class="fab fa-youtube contact-icon"></i>
+                        <div>
+                            <h4>YouTube</h4>
+                            <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" target="_blank" class="contact-link">Tsakani Sessions</a>
                         </div>
                     </div>
                     <div class="contact-extra">
