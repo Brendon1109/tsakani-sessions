@@ -82,10 +82,7 @@ body {
     --hero-bg-image: none; /* set to url('assets/tsakani-hero.jpg') to enable */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #000;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><polygon points="60,10 110,35 110,85 60,110 10,85 10,35" fill="%231a1a1a"/><polygon points="60,30 90,45 90,75 60,90 30,75 30,45" fill="%230a0a0a"/></svg>');
-    background-repeat: repeat;
-    background-size: 120px 120px;
+    background: var(--background-light);
 }
 
 /* Modern Typography Scale */
@@ -370,6 +367,10 @@ p {
 
 /* Hero (redesigned) */
 .hero {
+        background: #000;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><polygon points="60,10 110,35 110,85 60,110 10,85 10,35" fill="%231a1a1a"/><polygon points="60,30 90,45 90,75 60,90 30,75 30,45" fill="%230a0a0a"/></svg>');
+        background-repeat: repeat;
+        background-size: 120px 120px;
     position: relative;
     min-height: 72vh;
     display: flex;
