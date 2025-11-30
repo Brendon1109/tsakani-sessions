@@ -3344,8 +3344,8 @@ button:focus-visible {
     height: 80px;
     background: var(--bg-elevated);
     border-radius: 50%;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition);
+     max-width: 170px;
+     min-width: 100px;
     text-decoration: none;
     color: var(--accent-color);
     font-size: 2rem;
