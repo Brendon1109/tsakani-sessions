@@ -3275,15 +3275,6 @@ button:focus-visible {
 }
 
 /* Brand Logo Styles */
-.brand-logo {
-    height: 40px;
-    width: auto;
-    transition: var(--transition);
-}
-
-.brand-logo:hover {
-    transform: scale(1.05);
-}
 
 /* Hero Logo Styles */
 .hero-logo-container {
