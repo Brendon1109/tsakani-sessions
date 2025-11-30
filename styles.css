@@ -3293,22 +3293,23 @@ button:focus-visible {
     margin-bottom: var(--space-lg);
 }
 
-.hero-logo {
-    max-width: 400px;
+
+.brand-logo {
+    max-width: 180px;
+    min-width: 120px;
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-    animation: heroGlow 3s ease-in-out infinite alternate;
+    display: block;
+    vertical-align: middle;
+    transition: max-width 0.3s, min-width 0.3s;
 }
-
-@keyframes heroGlow {
     from { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)) brightness(1); }
-    to { filter: drop-shadow(0 8px 16px rgba(255,215,0,0.2)) brightness(1.1); }
+@media (max-width: 600px) {
+    .brand-logo {
+        max-width: 120px;
+        min-width: 60px;
+    }
 }
-
-/* Brand text styling */
-.brand-text {
-    color: var(--text-light);
     font-size: 1.5rem;
     font-weight: var(--font-weight-bold);
     font-family: var(--font-family-primary);
