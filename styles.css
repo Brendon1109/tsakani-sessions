@@ -20,7 +20,7 @@
     
     /* Enhanced Gradients */
     --gradient-primary: linear-gradient(135deg, #000000 0%, #2a2a2a 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+    --gradient-hero: #000;
     --gradient-warm: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
     --gradient-african: linear-gradient(135deg, #2a2a2a 0%, #ffd700 50%, #b8860b 100%);
     --gradient-card: linear-gradient(145deg, #ffffff 0%, #f9f9f9 100%);
