@@ -10,10 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Skip Links -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <a href="#navigation" class="skip-link">Skip to navigation</a>
-    
         <header class="site-header">
             <div class="container nav-container">
                 <div class="brand">
@@ -33,7 +29,7 @@
                         <li><a href="#gallery" class="nav-link" id="gallery-btn">Gallery</a></li>
                         <li><a href="#shop" class="nav-link" id="shop-btn">Shop</a></li>
                         <li><a href="#contact" class="nav-link">Contact</a></li>
-                        <li><button onclick="showBookingModal('full-session', event)" class="btn btn-primary nav-cta">Book Now</button></li>
+                        <li><button onclick="openBookingModal('full-session')" class="btn btn-primary nav-cta">Book Now</button></li>
                     </ul>
                 </nav>
             </div>
@@ -78,7 +74,7 @@
                             <li>Two-Tale Themed Experience</li>
                             <li>Full Production & Equipment</li>
                         </ul>
-                        <button onclick="showBookingModal('full-session', event)" class="btn btn-secondary">Book Experience</button>
+                        <button onclick="openBookingModal('full-session')" class="btn btn-secondary">Book Experience</button>
                     </article>
                     <article class="card service-card">
                         <div class="card-icon"><i class="fas fa-music"></i></div>
@@ -90,7 +86,7 @@
                             <li>Community-First Selection</li>
                             <li>Authentic Storytelling</li>
                         </ul>
-                        <button onclick="showBookingModal('dj-only', event)" class="btn btn-secondary">Book Performance</button>
+                        <button onclick="openBookingModal('dj-only')" class="btn btn-secondary">Book Performance</button>
                     </article>
                     <article class="card service-card">
                         <div class="card-icon"><i class="fas fa-video"></i></div>
@@ -102,7 +98,7 @@
                             <li>Storytelling Photography</li>
                             <li>Brand Integration</li>
                         </ul>
-                        <button onclick="showBookingModal('content-only', event)" class="btn btn-secondary">Book Content</button>
+                        <button onclick="openBookingModal('content-only')" class="btn btn-secondary">Book Content</button>
                     </article>
                 </div>
             </div>
@@ -173,13 +169,13 @@
                     <p>Choose your perfect Tsakani Sessions experience</p>
                 </header>
                 <div class="booking-options">
-                    <button onclick="showBookingModal('full-session', event)" class="btn btn-primary btn-large">
+                    <button onclick="openBookingModal('full-session')" class="btn btn-primary btn-large">
                         <i class="fas fa-fire"></i> Book Full Experience
                     </button>
-                    <button onclick="showBookingModal('dj-only', event)" class="btn btn-outline btn-large">
+                    <button onclick="openBookingModal('dj-only')" class="btn btn-outline btn-large">
                         <i class="fas fa-music"></i> DJ Services Only
                     </button>
-                    <button onclick="showBookingModal('content-only', event)" class="btn btn-outline btn-large">
+                    <button onclick="openBookingModal('content-only')" class="btn btn-outline btn-large">
                         <i class="fas fa-video"></i> Content Creation
                     </button>
                 </div>
@@ -217,7 +213,7 @@
                         <li><a href="#services">Full Sessions</a></li>
                         <li><a href="#services">DJ Services</a></li>
                         <li><a href="#services">Content Creation</a></li>
-                        <li><button onclick="showBookingModal('full-session', event)" style="background: none; border: none; color: inherit; text-decoration: underline; cursor: pointer;">Book Now</button></li>
+                        <li><button onclick="openBookingModal('full-session')" style="background: none; border: none; color: inherit; text-decoration: underline; cursor: pointer;">Book Now</button></li>
                     </ul>
                 </div>
                 <div class="footer-links">
