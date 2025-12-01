@@ -3715,8 +3715,9 @@ button:focus-visible {
     }
 }
 
-/* Beautiful Cursive Greeting in Header */
+/* Beautiful Cursive Greeting in Header - Mobile Only */
 .header-greeting {
+    display: none; /* Hidden by default on desktop */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -3768,15 +3769,18 @@ button:focus-visible {
 
 
 
-/* Mobile responsive greeting */
+/* Mobile responsive greeting - Show only on mobile */
 @media (max-width: 768px) {
+    .header-greeting {
+        display: block; /* Show on mobile */
+    }
     .cursive-greeting {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
 }
 
 @media (max-width: 480px) {
     .cursive-greeting {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 }
