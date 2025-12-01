@@ -3764,39 +3764,19 @@ button:focus-visible {
     }
 }
 
-/* Desktop positioning */
-@media (min-width: 1024px) {
-    .header-greeting {
-        right: 150px;
-        top: 20px;
-    }
-}
 
-/* Tablet positioning */
-@media (max-width: 1023px) and (min-width: 769px) {
-    .header-greeting {
-        right: 80px;
-        top: 12px;
-    }
-}
+
+
 
 /* Mobile responsive greeting */
 @media (max-width: 768px) {
-    .header-greeting {
-        top: 8px;
-        right: 60px;
-    }
     .cursive-greeting {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 }
 
 @media (max-width: 480px) {
-    .header-greeting {
-        top: 8px;
-        right: 50px;
-    }
     .cursive-greeting {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 }
