@@ -208,6 +208,7 @@ p {
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    position: relative;
 }
 
 .nav-logo h2 {
@@ -3716,15 +3717,16 @@ button:focus-visible {
 
 /* Beautiful Cursive Greeting in Header */
 .header-greeting {
-    text-align: center;
-    padding: 0.5rem 0;
-    background: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 10;
     animation: fadeInUp 1s ease-out;
 }
 
 .cursive-greeting {
     font-family: 'Dancing Script', 'Brush Script MT', cursive;
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(45deg, #FF4500, #FFD700, #FF6B35);
     background-size: 200% 200%;
@@ -3735,6 +3737,7 @@ button:focus-visible {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     display: inline-block;
     transform: rotate(-2deg);
+    white-space: nowrap;
 }
 
 @keyframes gradientShift {
@@ -3762,13 +3765,21 @@ button:focus-visible {
 
 /* Mobile responsive greeting */
 @media (max-width: 768px) {
+    .header-greeting {
+        top: 5px;
+        right: 15px;
+    }
     .cursive-greeting {
-        font-size: 2rem;
+        font-size: 1.4rem;
     }
 }
 
 @media (max-width: 480px) {
+    .header-greeting {
+        top: 5px;
+        right: 10px;
+    }
     .cursive-greeting {
-        font-size: 1.75rem;
+        font-size: 1.2rem;
     }
 }
