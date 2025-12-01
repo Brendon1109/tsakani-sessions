@@ -3718,15 +3718,16 @@ button:focus-visible {
 /* Beautiful Cursive Greeting in Header */
 .header-greeting {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     z-index: 10;
     animation: fadeInUp 1s ease-out;
 }
 
 .cursive-greeting {
     font-family: 'Dancing Script', 'Brush Script MT', cursive;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     background: linear-gradient(45deg, #FF4500, #FFD700, #FF6B35);
     background-size: 200% 200%;
@@ -3736,8 +3737,8 @@ button:focus-visible {
     animation: gradientShift 3s ease-in-out infinite, bounceIn 1.2s ease-out;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     display: inline-block;
-    transform: rotate(-2deg);
     white-space: nowrap;
+    transform: rotate(-2deg);
 }
 
 @keyframes gradientShift {
@@ -3763,11 +3764,27 @@ button:focus-visible {
     }
 }
 
+/* Desktop positioning */
+@media (min-width: 1024px) {
+    .header-greeting {
+        right: 150px;
+        top: 20px;
+    }
+}
+
+/* Tablet positioning */
+@media (max-width: 1023px) and (min-width: 769px) {
+    .header-greeting {
+        right: 80px;
+        top: 12px;
+    }
+}
+
 /* Mobile responsive greeting */
 @media (max-width: 768px) {
     .header-greeting {
-        top: 5px;
-        right: 15px;
+        top: 8px;
+        right: 60px;
     }
     .cursive-greeting {
         font-size: 1.4rem;
@@ -3776,8 +3793,8 @@ button:focus-visible {
 
 @media (max-width: 480px) {
     .header-greeting {
-        top: 5px;
-        right: 10px;
+        top: 8px;
+        right: 50px;
     }
     .cursive-greeting {
         font-size: 1.2rem;
