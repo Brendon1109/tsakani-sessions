@@ -270,6 +270,20 @@ class GoogleDriveBackgroundShuffler {
 const gamification = new TsakaniGamificationEngine();
 const backgroundShuffler = new GoogleDriveBackgroundShuffler();
 
+// Test function for debugging
+window.testModal = function() {
+    console.log('🧪 Testing modal...');
+    const modal = document.getElementById('booking-modal');
+    if (modal) {
+        modal.classList.add('show');
+        console.log('✅ Modal should be visible now');
+        return true;
+    } else {
+        console.error('❌ Modal not found');
+        return false;
+    }
+};
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
@@ -339,12 +353,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Modal functionality
     closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
+        closeBookingModal();
     });
 
     window.addEventListener('click', function(e) {
         if (e.target === modal) {
-            modal.style.display = 'none';
+            closeBookingModal();
         }
     });
 
@@ -795,22 +809,29 @@ async function loadInstagramPlaceholders() {
 
 // Make booking function globally available
 window.openBookingModal = function(serviceType) {
-    console.log('Window openBookingModal called with serviceType:', serviceType);
-    alert('Booking modal called for: ' + serviceType);
-    openBookingModalInternal(serviceType);
+    console.log('🚀 Window openBookingModal called with serviceType:', serviceType);
+    try {
+        openBookingModalInternal(serviceType);
+    } catch (error) {
+        console.error('❌ Error in openBookingModal:', error);
+    }
 };
 
 // Booking Modal Functions
 function openBookingModalInternal(serviceType) {
-    console.log('openBookingModal called with serviceType:', serviceType);
+    console.log('🔍 DEBUG: openBookingModal called with serviceType:', serviceType);
     const modal = document.getElementById('booking-modal');
     const title = document.getElementById('booking-title');
     const formContent = document.getElementById('booking-form-content');
     
-    console.log('Modal elements found:', {modal: !!modal, title: !!title, formContent: !!formContent});
+    console.log('🔍 Modal elements found:', {modal: !!modal, title: !!title, formContent: !!formContent});
+    console.log('🔍 Modal element:', modal);
+    console.log('🔍 Title element:', title);
+    console.log('🔍 FormContent element:', formContent);
     
     if (!modal || !title || !formContent) {
-        console.error('Required modal elements not found!');
+        console.error('❌ Required modal elements not found!');
+        console.log('❌ Available elements with booking:', document.querySelectorAll('[id*="booking"]'));
         return;
     }
     
@@ -1034,7 +1055,9 @@ function openBookingModalInternal(serviceType) {
 
     title.textContent = titleText;
     formContent.innerHTML = formHTML;
-    modal.style.display = 'flex';
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    console.log('🎯 DEBUG: Modal should now be visible. Modal classList:', modal.classList.toString());
 
     // Set minimum date to today for all date inputs
     const dateInput = document.getElementById('event-date');
@@ -1054,7 +1077,7 @@ function openBookingModalInternal(serviceType) {
 function closeBookingModal() {
     const modal = document.getElementById('booking-modal');
     if (modal) {
-        modal.style.display = 'none';
+        modal.classList.remove('show');
         document.body.style.overflow = 'auto';
         
         // Reset form
@@ -1065,8 +1088,17 @@ function closeBookingModal() {
     }
 }
 
-// Handle booking form submission
+// Handle booking form submission and ensure modal setup
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 DOM Content Loaded - Setting up booking modal...');
+    
+    // Verify modal elements exist
+    const modal = document.getElementById('booking-modal');
+    const title = document.getElementById('booking-title');
+    const formContent = document.getElementById('booking-form-content');
+    
+    console.log('🔍 Modal setup check:', {modal: !!modal, title: !!title, formContent: !!formContent});
+    
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', handleBookingSubmission);

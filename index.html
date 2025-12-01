@@ -6,7 +6,7 @@
     <title>Tsakani Sessions - Experience the Joy of Music Together</title>
     <meta name="description" content="Book Tsakani Sessions for unforgettable live music events, DJ services, and content creation. Join us for an immersive journey of sound and culture.">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
                         <li><a href="#gallery" class="nav-link" id="gallery-btn">Gallery</a></li>
                         <li><a href="#shop" class="nav-link" id="shop-btn">Shop</a></li>
                         <li><a href="#contact" class="nav-link">Contact</a></li>
-                        <li><button onclick="openBookingModal('full-session')" class="btn btn-primary nav-cta">Book Now</button></li>
+                        <li><a href="#booking" class="btn btn-primary nav-cta">Book Now</a></li>
                     </ul>
                 </nav>
             </div>
@@ -40,6 +40,9 @@
             <div class="hero-bg"></div>
             <div class="container hero-inner">
                 <div class="hero-content">
+                    <div class="hero-greeting">
+                        <span class="cursive-greeting">Hi Tsakani!!</span>
+                    </div>
                     <div class="hero-logo-container">
                         <img src="assets/tsakani words.png" alt="Tsakani Sessions" class="hero-logo" style="max-width:320px;width:100%;display:block;margin:0 auto;" onerror="this.onerror=null;this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\'color:#fff;font-size:2rem;font-weight:bold;\'>Tsakani Sessions</span>');">
                     </div>
@@ -127,23 +130,28 @@
                     <h2>Let's Build Something Together</h2>
                     <p>Ready to create unforgettable experiences? We're here to make it happen.</p>
                 </header>
-                <div class="contact-horizontal">
-                    <a href="tel:+27769961477" class="contact-icon-only" title="Call Now">
-                        <i class="fas fa-phone"></i>
-                    </a>
-                    <a href="https://wa.me/27769961477" target="_blank" class="contact-icon-only" title="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:tsakanisessions@gmail.com" class="contact-icon-only" title="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="https://www.instagram.com/tsakani_sessions?igsh=N2Z3aTk4bGVtYTkz" target="_blank" class="contact-icon-only" title="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" target="_blank" class="contact-icon-only" title="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <div class="contact-extra">
+                <div class="contact-layout">
+                    <!-- Contact icons at top -->
+                    <div class="contact-horizontal">
+                        <a href="tel:+27769961477" class="contact-icon-only" title="Call Now">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                        <a href="https://wa.me/27769961477" target="_blank" class="contact-icon-only" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto:tsakanisessions@gmail.com" class="contact-icon-only" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.instagram.com/tsakani_sessions?igsh=N2Z3aTk4bGVtYTkz" target="_blank" class="contact-icon-only" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/@tsakanisessions?si=domAKxXuYCNI3VW3" target="_blank" class="contact-icon-only" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Newsletter box below icons -->
+                    <div class="newsletter-section">
                         <div class="newsletter-box">
                             <h3>Stay Updated</h3>
                             <p>Subscribe to our newsletter for upcoming events and exclusive content.</p>
@@ -376,6 +384,143 @@
                     scrollProgress.style.width = scrollPercent + '%';
                 });
         </script>
+        
+        <!-- Simple Modal Script -->
+        <script>
+        function openBookingModal(serviceType) {
+            console.log('📞 Opening booking modal for:', serviceType);
+            
+            const modal = document.getElementById('booking-modal');
+            const title = document.getElementById('booking-title');
+            const formContent = document.getElementById('booking-form-content');
+            
+            if (!modal || !title || !formContent) {
+                alert('Modal elements not found. Please refresh the page.');
+                return;
+            }
+            
+            // Set title based on service type
+            let titleText = '';
+            switch(serviceType) {
+                case 'full-session':
+                    titleText = 'Book Full Tsakani Experience';
+                    break;
+                case 'dj-only':
+                    titleText = 'Book DJ Services';
+                    break;
+                case 'content-only':
+                    titleText = 'Book Content Creation';
+                    break;
+                default:
+                    titleText = 'Book Your Session';
+            }
+            
+            title.textContent = titleText;
+            
+            // Create booking form
+            formContent.innerHTML = `
+                <div class="form-group">
+                    <label for="client-name">Your Name *</label>
+                    <input type="text" id="client-name" name="client-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-phone">Phone Number *</label>
+                    <input type="tel" id="client-phone" name="client-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-email">Email Address *</label>
+                    <input type="email" id="client-email" name="client-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-date">Event Date *</label>
+                    <input type="date" id="event-date" name="event-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-location">Event Location *</label>
+                    <input type="text" id="event-location" name="event-location" required>
+                </div>
+                <div class="form-group">
+                    <label for="guest-count">Expected Number of Guests</label>
+                    <input type="number" id="guest-count" name="guest-count" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="event-details">Event Details & Requirements</label>
+                    <textarea id="event-details" name="event-details" rows="4" placeholder="Tell us about your event, music preferences, and any special requirements..."></textarea>
+                </div>
+            `;
+            
+            // Show modal
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            console.log('✅ Modal should now be visible');
+        }
+        
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            if (modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Set up modal close handlers when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('booking-modal');
+            const closeBtn = document.querySelector('#booking-modal .close');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeBookingModal);
+            }
+            
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeBookingModal();
+                    }
+                });
+            }
+            
+            // Form submission
+            const bookingForm = document.getElementById('booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(e.target);
+                    const name = formData.get('client-name');
+                    const phone = formData.get('client-phone');
+                    const email = formData.get('client-email');
+                    const eventDate = formData.get('event-date');
+                    const location = formData.get('event-location');
+                    const guests = formData.get('guest-count');
+                    const details = formData.get('event-details');
+                    
+                    // Create WhatsApp message
+                    let message = `🎵 TSAKANI SESSIONS BOOKING REQUEST\n\n`;
+                    message += `Name: ${name}\n`;
+                    message += `Phone: ${phone}\n`;
+                    message += `Email: ${email}\n`;
+                    message += `Event Date: ${eventDate}\n`;
+                    message += `Location: ${location}\n`;
+                    if (guests) message += `Expected Guests: ${guests}\n`;
+                    if (details) message += `Details: ${details}\n`;
+                    
+                    // Open WhatsApp
+                    const whatsappUrl = `https://wa.me/27769961477?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Close modal and show success
+                    closeBookingModal();
+                    alert('Thank you! Your booking request will be sent via WhatsApp.');
+                });
+            }
+            
+            console.log('🔧 Booking modal system initialized');
+        });
+        </script>
+        
         <script src="script.js"></script>
         <!-- All booking modal and gallery logic is now handled in script.js for consistency and maintainability. -->
     </body>

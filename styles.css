@@ -1513,8 +1513,39 @@ section {
     align-items: center !important;
 }
 
-.modal[style*="display: flex"] {
+.modal.show {
     display: flex !important;
+}
+
+/* Form styling inside modal */
+.modal .form-group {
+    margin-bottom: 1rem;
+}
+
+.modal .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.modal .form-group input,
+.modal .form-group textarea,
+.modal .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.modal .form-group input:focus,
+.modal .form-group textarea:focus,
+.modal .form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.1);
 }
 
 /* Ensure modal form elements are interactive */
@@ -3046,32 +3077,7 @@ button:focus-visible {
     .pattern-text { font-size: 0.85rem; letter-spacing: 1.5px; }
 }
 
-/* Modal Styles */
-.modal {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background: rgba(0,0,0,0.72);
-    backdrop-filter: blur(4px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 2000;
-}
-.modal.show { opacity: 1; pointer-events: auto; }
-.modal-content {
-    background: var(--bg-elevated);
-    width: min(640px, 100%);
-    padding: 1.5rem 1.75rem 2rem;
-    border-radius: 18px;
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-    animation: modalIn 0.35s ease;
-}
-@keyframes modalIn { from { transform: translateY(18px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+/* Duplicate modal styles removed - using main modal CSS above */
 .modal-close {
     position: absolute;
     top: 0.65rem;
@@ -3526,20 +3532,27 @@ button:focus-visible {
     color: #ff0000;
 }
 
-/* Newsletter and Contact Form Styles */
-.contact-extra {
-    grid-column: 1 / -1;
-    margin-top: 3rem;
+/* Contact Layout */
+.contact-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.newsletter-section {
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
 .newsletter-box {
     background: var(--background-light);
-    padding: 2rem;
+    padding: 1.25rem 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    max-width: 500px;
+    max-width: 480px;
+    width: 100%;
     text-align: center;
 }
 
@@ -3639,6 +3652,10 @@ button:focus-visible {
         max-width: 280px;
     }
     
+    .contact-layout {
+        gap: 2rem;
+    }
+    
     .contact-horizontal {
         gap: var(--space-lg);
     }
@@ -3647,6 +3664,12 @@ button:focus-visible {
         width: 70px;
         height: 70px;
         font-size: 1.8rem;
+    }
+    
+    .newsletter-box {
+        padding: 1rem 1.25rem;
+        margin: 0 1rem;
+        max-width: 100%;
     }
     
     .media-layout-horizontal {
@@ -3688,5 +3711,62 @@ button:focus-visible {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Beautiful Cursive Greeting */
+.hero-greeting {
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.cursive-greeting {
+    font-family: 'Dancing Script', 'Brush Script MT', cursive;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FF4500, #FFD700, #FF6B35);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite, bounceIn 1.2s ease-out;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    display: inline-block;
+    transform: rotate(-2deg);
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3) rotate(-2deg); opacity: 0; }
+    50% { transform: scale(1.05) rotate(-2deg); }
+    70% { transform: scale(0.9) rotate(-2deg); }
+    100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsive greeting */
+@media (max-width: 768px) {
+    .cursive-greeting {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cursive-greeting {
+        font-size: 1.75rem;
     }
 }
