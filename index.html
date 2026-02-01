@@ -330,7 +330,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <small>&copy; 2025 Tsakani Sessions. All rights reserved.</small>
+                <small>&copy; 2026 Tsakani Sessions.</small>
             </div>
         </footer>
 
@@ -352,6 +352,14 @@
                 toggle.addEventListener('click', () => {
                     menu.classList.toggle('open');
                     toggle.classList.toggle('active');
+                });
+
+                // Close menu when clicking a nav link
+                document.querySelectorAll('.nav-menu .nav-link, .nav-menu .nav-cta').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menu.classList.remove('open');
+                        toggle.classList.remove('active');
+                    });
                 });
             }
 
@@ -773,16 +781,33 @@
 
                     } catch (error) {
                         console.error('Upload error:', error);
-                        statusText.textContent = `Error uploading ${file.name}`;
+                        let errorMsg = `Error: ${file.name} - `;
+                        if (error.code === 'storage/unauthorized') {
+                            errorMsg += 'Permission denied. Check Firebase Storage rules.';
+                        } else if (error.code === 'storage/canceled') {
+                            errorMsg += 'Upload canceled.';
+                        } else if (error.code === 'storage/unknown') {
+                            errorMsg += 'Network error. Please try again.';
+                        } else {
+                            errorMsg += error.message || 'Unknown error';
+                        }
+                        statusText.textContent = errorMsg;
+                        statusText.style.color = '#ff6b6b';
+                        // Keep error visible longer
+                        await new Promise(r => setTimeout(r, 3000));
+                        statusText.style.color = '';
+                        return; // Stop on error
                     }
                 }
 
                 statusText.textContent = 'Upload complete!';
+                statusText.style.color = '#4ade80';
                 progressBar.style.width = '100%';
 
                 // Reload gallery after upload
                 setTimeout(() => {
                     closeUploadModal();
+                    statusText.style.color = '';
                     loadGallery();
                 }, 1500);
             }
