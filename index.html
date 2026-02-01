@@ -107,21 +107,89 @@
             </div>
         </section>
 
-
-
-        <!-- Gallery -->
-        <section id="gallery" class="section">
+        <!-- Shop Section -->
+        <section id="shop" class="section shop-section">
             <div class="container">
-                <div class="media-layout-horizontal">
-                    <div class="media-block media-block-compact instagram-compact">
-                        <div id="instagram-photos" aria-live="polite"></div>
-                    </div>
-                    <div class="media-block media-block-compact youtube-compact">
-                        <div id="youtube-videos" aria-live="polite"></div>
-                    </div>
+                <header class="section-header">
+                    <h2>Shop</h2>
+                    <p>Minimalist essentials. Premium quality.</p>
+                </header>
+                <div class="shop-grid">
+                    <!-- Product 1: Men's Tee -->
+                    <article class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3 class="product-title">Tsakani Men's Tee</h3>
+                        <p class="product-price">R450</p>
+                        <div class="size-selector">
+                            <button class="size-btn" data-size="S">S</button>
+                            <button class="size-btn" data-size="M">M</button>
+                            <button class="size-btn" data-size="L">L</button>
+                        </div>
+                        <button class="buy-btn" onclick="handleBuyNow('Tsakani Men\'s Tee', 450)">Buy Now</button>
+                    </article>
+
+                    <!-- Product 2: Women's Tee -->
+                    <article class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3 class="product-title">Tsakani Women's Tee</h3>
+                        <p class="product-price">R450</p>
+                        <div class="size-selector">
+                            <button class="size-btn" data-size="S">S</button>
+                            <button class="size-btn" data-size="M">M</button>
+                            <button class="size-btn" data-size="L">L</button>
+                        </div>
+                        <button class="buy-btn" onclick="handleBuyNow('Tsakani Women\'s Tee', 450)">Buy Now</button>
+                    </article>
                 </div>
             </div>
         </section>
+
+        <!-- Gallery Section with Firebase -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Gallery</h2>
+                    <p>Moments captured. Stories told.</p>
+                </header>
+
+                <div id="gallery-grid" class="gallery-grid">
+                    <div class="gallery-loading">
+                        <i class="fas fa-spinner"></i>
+                        <p>Loading gallery...</p>
+                    </div>
+                </div>
+
+                <!-- Admin Upload Section (discreet) -->
+                <div class="admin-upload-section">
+                    <button class="admin-upload-btn" onclick="openUploadModal()">
+                        <i class="fas fa-plus"></i> Admin Upload
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Modal -->
+        <div id="upload-modal" class="upload-modal">
+            <div class="upload-modal-content" style="position: relative;">
+                <button class="upload-close-btn" onclick="closeUploadModal()">&times;</button>
+                <h3>Upload to Gallery</h3>
+                <div class="upload-dropzone" id="upload-dropzone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Click or drag images here to upload</p>
+                    <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+                </div>
+                <div class="upload-progress" id="upload-progress">
+                    <p id="upload-status">Uploading...</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Contact -->
         <section id="contact" class="section alt-section">
@@ -523,4 +591,227 @@
         
         <script src="script.js"></script>
         <!-- All booking modal and gallery logic is now handled in script.js for consistency and maintainability. -->
+
+        <!-- Firebase SDK -->
+        <script type="module">
+            // Import Firebase SDK
+            import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+            import { getStorage, ref, listAll, getDownloadURL, uploadBytesResumable } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+            // Firebase Configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyD7M_43FWLhxR8MQh4_yB73ywR5pM1d0ZI",
+                authDomain: "tsakani-sessions.firebaseapp.com",
+                projectId: "tsakani-sessions",
+                storageBucket: "tsakani-sessions.firebasestorage.app",
+                messagingSenderId: "755574082131",
+                appId: "1:755574082131:web:cbe65d402bb7f0b5c514a6",
+                measurementId: "G-MT264TZ5VW"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const storage = getStorage(app);
+
+            // Gallery Functions
+            async function loadGallery() {
+                const galleryGrid = document.getElementById('gallery-grid');
+                if (!galleryGrid) return;
+
+                try {
+                    const galleryRef = ref(storage, 'gallery/');
+                    const result = await listAll(galleryRef);
+
+                    if (result.items.length === 0) {
+                        galleryGrid.innerHTML = `
+                            <div class="gallery-empty">
+                                <i class="fas fa-images"></i>
+                                <p>No images yet. Be the first to upload!</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    // Get all download URLs
+                    const imagePromises = result.items.map(async (itemRef) => {
+                        const url = await getDownloadURL(itemRef);
+                        return { name: itemRef.name, url };
+                    });
+
+                    const images = await Promise.all(imagePromises);
+
+                    // Render gallery
+                    galleryGrid.innerHTML = images.map(img => `
+                        <div class="gallery-item">
+                            <img src="${img.url}" alt="${img.name}" loading="lazy">
+                            <div class="gallery-item-overlay">
+                                <button class="download-btn" onclick="downloadImage('${img.url}', '${img.name}')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+
+                } catch (error) {
+                    console.error('Error loading gallery:', error);
+                    galleryGrid.innerHTML = `
+                        <div class="gallery-empty">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <p>Unable to load gallery. Please try again later.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Download image function
+            window.downloadImage = async function(url, filename) {
+                try {
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                } catch (error) {
+                    console.error('Download error:', error);
+                    // Fallback: open in new tab
+                    window.open(url, '_blank');
+                }
+            };
+
+            // Upload Modal Functions
+            window.openUploadModal = function() {
+                document.getElementById('upload-modal').classList.add('show');
+                document.body.style.overflow = 'hidden';
+            };
+
+            window.closeUploadModal = function() {
+                document.getElementById('upload-modal').classList.remove('show');
+                document.body.style.overflow = 'auto';
+                document.getElementById('upload-progress').classList.remove('show');
+            };
+
+            // File Upload Handling
+            const dropzone = document.getElementById('upload-dropzone');
+            const fileInput = document.getElementById('file-input');
+
+            if (dropzone && fileInput) {
+                dropzone.addEventListener('click', () => fileInput.click());
+
+                dropzone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add('dragover');
+                });
+
+                dropzone.addEventListener('dragleave', () => {
+                    dropzone.classList.remove('dragover');
+                });
+
+                dropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('dragover');
+                    const files = e.dataTransfer.files;
+                    handleFiles(files);
+                });
+
+                fileInput.addEventListener('change', (e) => {
+                    handleFiles(e.target.files);
+                });
+            }
+
+            async function handleFiles(files) {
+                if (!files.length) return;
+
+                const progressContainer = document.getElementById('upload-progress');
+                const progressBar = document.getElementById('progress-bar-fill');
+                const statusText = document.getElementById('upload-status');
+
+                progressContainer.classList.add('show');
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    if (!file.type.startsWith('image/')) {
+                        statusText.textContent = `Skipping ${file.name} (not an image)`;
+                        continue;
+                    }
+
+                    statusText.textContent = `Uploading ${file.name} (${i + 1}/${files.length})...`;
+
+                    try {
+                        const timestamp = Date.now();
+                        const storageRef = ref(storage, `gallery/${timestamp}_${file.name}`);
+                        const uploadTask = uploadBytesResumable(storageRef, file);
+
+                        await new Promise((resolve, reject) => {
+                            uploadTask.on('state_changed',
+                                (snapshot) => {
+                                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                    progressBar.style.width = progress + '%';
+                                },
+                                (error) => reject(error),
+                                () => resolve()
+                            );
+                        });
+
+                    } catch (error) {
+                        console.error('Upload error:', error);
+                        statusText.textContent = `Error uploading ${file.name}`;
+                    }
+                }
+
+                statusText.textContent = 'Upload complete!';
+                progressBar.style.width = '100%';
+
+                // Reload gallery after upload
+                setTimeout(() => {
+                    closeUploadModal();
+                    loadGallery();
+                }, 1500);
+            }
+
+            // Close modal on outside click
+            document.getElementById('upload-modal')?.addEventListener('click', (e) => {
+                if (e.target.id === 'upload-modal') {
+                    closeUploadModal();
+                }
+            });
+
+            // Load gallery on page load
+            document.addEventListener('DOMContentLoaded', loadGallery);
+        </script>
+
+        <!-- Shop Functionality -->
+        <script>
+            // Size selector functionality
+            document.querySelectorAll('.size-selector').forEach(selector => {
+                selector.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove selected from siblings
+                        this.parentElement.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                        // Add selected to clicked
+                        this.classList.add('selected');
+                    });
+                });
+            });
+
+            // Buy Now handler (dummy - opens WhatsApp)
+            function handleBuyNow(productName, price) {
+                const productCard = event.target.closest('.product-card');
+                const selectedSize = productCard.querySelector('.size-btn.selected');
+                const size = selectedSize ? selectedSize.dataset.size : 'Not selected';
+
+                if (!selectedSize) {
+                    alert('Please select a size first.');
+                    return;
+                }
+
+                const message = `Hi! I'd like to order:\n\nProduct: ${productName}\nSize: ${size}\nPrice: R${price}\n\nPlease confirm availability.`;
+                const whatsappUrl = `https://wa.me/27769961477?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        </script>
     </body>
