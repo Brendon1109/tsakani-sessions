@@ -122,6 +122,13 @@
                         </div>
                         <h3 class="product-title">Tsakani Men's Tee</h3>
                         <p class="product-price">R450</p>
+                        <span class="color-selector-label">Color</span>
+                        <div class="color-selector">
+                            <button class="color-btn" data-color="black" title="Black"></button>
+                            <button class="color-btn" data-color="white" title="White"></button>
+                            <button class="color-btn" data-color="nude" title="Nude"></button>
+                        </div>
+                        <span class="color-selector-label">Size</span>
                         <div class="size-selector">
                             <button class="size-btn" data-size="S">S</button>
                             <button class="size-btn" data-size="M">M</button>
@@ -137,6 +144,13 @@
                         </div>
                         <h3 class="product-title">Tsakani Women's Tee</h3>
                         <p class="product-price">R450</p>
+                        <span class="color-selector-label">Color</span>
+                        <div class="color-selector">
+                            <button class="color-btn" data-color="black" title="Black"></button>
+                            <button class="color-btn" data-color="white" title="White"></button>
+                            <button class="color-btn" data-color="nude" title="Nude"></button>
+                        </div>
+                        <span class="color-selector-label">Size</span>
                         <div class="size-selector">
                             <button class="size-btn" data-size="S">S</button>
                             <button class="size-btn" data-size="M">M</button>
@@ -798,18 +812,40 @@
                 });
             });
 
+            // Color selector functionality
+            document.querySelectorAll('.color-selector').forEach(selector => {
+                selector.querySelectorAll('.color-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove selected from siblings
+                        this.parentElement.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+                        // Add selected to clicked
+                        this.classList.add('selected');
+                    });
+                });
+            });
+
             // Buy Now handler (dummy - opens WhatsApp)
             function handleBuyNow(productName, price) {
                 const productCard = event.target.closest('.product-card');
                 const selectedSize = productCard.querySelector('.size-btn.selected');
-                const size = selectedSize ? selectedSize.dataset.size : 'Not selected';
+                const selectedColor = productCard.querySelector('.color-btn.selected');
+                const size = selectedSize ? selectedSize.dataset.size : null;
+                const color = selectedColor ? selectedColor.dataset.color : null;
+
+                if (!selectedColor) {
+                    alert('Please select a color first.');
+                    return;
+                }
 
                 if (!selectedSize) {
                     alert('Please select a size first.');
                     return;
                 }
 
-                const message = `Hi! I'd like to order:\n\nProduct: ${productName}\nSize: ${size}\nPrice: R${price}\n\nPlease confirm availability.`;
+                // Capitalize color name
+                const colorName = color.charAt(0).toUpperCase() + color.slice(1);
+
+                const message = `Hi! I'd like to order:\n\nProduct: ${productName}\nColor: ${colorName}\nSize: ${size}\nPrice: R${price}\n\nPlease confirm availability.`;
                 const whatsappUrl = `https://wa.me/27769961477?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');
             }
